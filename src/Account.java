@@ -18,10 +18,14 @@ public class Account {
         this.email = email;
         this.age = age;
         this.balance = balance;
+
+//      Generate random account number
         Random rand = new Random();
         String rNums = "";
         for (int i=0; i<8;i++){
             String rNum = String.valueOf(rand.nextInt(9));
+
+//          Get new number if first random number is 0
             if(i==0 && rNum.equals("0")){
                 while(rNum.equals("0")){
                     rNum = String.valueOf(rand.nextInt(9));

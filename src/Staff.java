@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Staff {
     String[] usernames = {"admin"};
     String[] password = {"Password123!"};
+    String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: "};
 
     public Staff() {
     }
@@ -23,8 +24,10 @@ public class Staff {
                 line = readFile.nextLine();
                 if(line.equals(userChoice)){
                     System.out.println("\n");
-                    for (int i=0; i<7; i++){
-                        System.out.println(line);
+
+//                  Print all lines from account number (loops until last line for that account)
+                    for (int i=0; i<8; i++){
+                        System.out.println(accountTags[i] + line);
                         line = readFile.nextLine();
                     }
                 }
