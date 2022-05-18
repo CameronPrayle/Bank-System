@@ -1,6 +1,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
+
 public class Account {
     String accNum;
     String sortCode;
@@ -37,8 +39,30 @@ public class Account {
     }
 
     public void writeDetails() {
+
+        System.out.println("\n*******************************");
+        System.out.println("Enter account type: ");
+        System.out.println("1. Personal");
+        System.out.println("2. ISA");
+        System.out.println("3. Business");
+        System.out.println("*******************************");
+        Scanner scan = new Scanner(System.in);
+        String userChoice = scan.nextLine();
+        String fileChoice = "";
+        boolean exit = false;
+        switch (userChoice) {
+            case "1" :
+                Current c1 = new Current(name, address, email, age, balance);
+                fileChoice = "Accounts.txt";
+            case "2" : Business b1 = new Business(name, address, email, age, balance);
+                fileChoice = "Business.txt";
+            case "3" : ISA i1 = new ISA(name, address, email, age, balance);
+                fileChoice = "ISA.txt";
+            default : exit = true;
+        }
+
         try {
-            FileWriter fw = new FileWriter("Accounts.txt", true);
+            FileWriter fw = new FileWriter(fileChoice, true);
 
             fw.write(this.accNum +
                     "\n" + this.sortCode +
