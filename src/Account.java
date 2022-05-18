@@ -49,7 +49,8 @@ public class Account {
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
         String fileChoice = "";
-        boolean exit = false;
+
+
         switch (userChoice) {
             case "1" :
                 Current c1 = new Current(name, address, email, age, balance);
@@ -58,7 +59,7 @@ public class Account {
                 fileChoice = "Business.txt";
             case "3" : ISA i1 = new ISA(name, address, email, age, balance);
                 fileChoice = "ISA.txt";
-            default : exit = true;
+            default :
         }
 
         try {
@@ -71,7 +72,8 @@ public class Account {
                     "\n" + this.email +
                     "\n" + this.age +
                     "\n" + this.balance +
-                    "\n" + this.interest + "\n");
+                    "\n" + this.interest +
+                    "\n" + "----------" + "\n");
 
             fw.close();
             System.out.println("Information Saved");

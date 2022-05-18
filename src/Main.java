@@ -4,6 +4,10 @@ public class Main {
     public static void main(String[] args) {
         Staff s1 = new Staff();
 
+        //Creating StaffCredentialsChecker class and running login:
+        StaffCredentialsChecker staffCredentialsChecker = new StaffCredentialsChecker();
+        staffCredentialsChecker.RunLoginSystem();
+
 //      Options Interface
         boolean exit=false;
         while (!exit){
