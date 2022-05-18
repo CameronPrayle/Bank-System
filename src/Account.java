@@ -49,6 +49,7 @@ public class Account {
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
         String fileChoice = "";
+
         boolean exit = false;
         switch (userChoice) {
             case "1" :
@@ -71,7 +72,8 @@ public class Account {
                     "\n" + this.email +
                     "\n" + this.age +
                     "\n" + this.balance +
-                    "\n" + this.interest + "\n");
+                    "\n" + this.interest +
+                    "\n" + "----------" + "\n");
 
             fw.close();
             System.out.println("Information Saved");
