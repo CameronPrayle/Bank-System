@@ -15,6 +15,8 @@ public class Staff {
         System.out.println("\nEnter account number: ");
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
+        System.out.println("\nEnter sort code: ");
+        String sort_code = scan.nextLine();
 
         try {
             File f = new File("Accounts.txt");
