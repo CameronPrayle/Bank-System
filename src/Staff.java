@@ -29,6 +29,7 @@ public class Staff {
                     System.out.println("\n");
                     System.out.println(accountTags[0]+line);
 //                  Print all lines from account number (loops until last line for that account)
+
                     int i=1;
                     while (!Objects.equals(line, "----------")){
                         line = readFile.nextLine();
@@ -38,6 +39,7 @@ public class Staff {
                             continue;
                         }
                         i++;
+
                     }
                 }
             }
