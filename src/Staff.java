@@ -26,9 +26,11 @@ public class Staff {
                     System.out.println("\n");
                     System.out.println(accountTags[0]+line);
 //                  Print all lines from account number (loops until last line for that account)
-                    for (int i=1; i<7; i++){
-                        System.out.println(accountTags[i] + line);
+                    for (int i=1; i<8; i++){
                         line = readFile.nextLine();
+                        System.out.println(accountTags[i] + line);
+
+
                     }
                 }
             }
