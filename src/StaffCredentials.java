@@ -4,8 +4,8 @@
 public class StaffCredentials {
 
     //init variables and constructor:
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
     public StaffCredentials(String emailAddress, String password) {
         this.username = emailAddress;

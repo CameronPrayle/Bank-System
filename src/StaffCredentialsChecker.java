@@ -7,7 +7,7 @@ public class StaffCredentialsChecker {
     StaffCredentials user1 = new StaffCredentials("user1@example.co.uk", "Password1");
     StaffCredentials user2 = new StaffCredentials("user2@example.co.uk", "Password2");
 
-    ArrayList<StaffCredentials> staffCredentials = new ArrayList<StaffCredentials>(2);
+    ArrayList<StaffCredentials> staffCredentials = new ArrayList<>(2);
 
     StaffCredentialsChecker(){
         staffCredentials.add(user1);
@@ -32,11 +32,11 @@ public class StaffCredentialsChecker {
 
     //Checking Credentials against know credentials:
     public void CheckCredentials() {
-        for (int i = 0; i<staffCredentials.size();i++) {
+        for (StaffCredentials staffCredential : staffCredentials) {
 
-            if (enteredName.equalsIgnoreCase(staffCredentials.get(i).getUsername()) && enteredPassword.equals(staffCredentials.get(i).getPassword())) {
-            areCredentialsCorrect = true;
-            System.out.println("Welcome "+staffCredentials.get(i).getUsername()+"!");
+            if (enteredName.equalsIgnoreCase(staffCredential.getUsername()) && enteredPassword.equals(staffCredential.getPassword())) {
+                areCredentialsCorrect = true;
+                System.out.println("Welcome " + staffCredential.getUsername() + "!");
             }
         }
         if(!areCredentialsCorrect){

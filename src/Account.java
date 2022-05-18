@@ -50,7 +50,7 @@ public class Account {
         String userChoice = scan.nextLine();
         String fileChoice = "";
 
-        boolean exit = false;
+
         switch (userChoice) {
             case "1" :
                 Current c1 = new Current(name, address, email, age, balance);
@@ -59,7 +59,7 @@ public class Account {
                 fileChoice = "Business.txt";
             case "3" : ISA i1 = new ISA(name, address, email, age, balance);
                 fileChoice = "ISA.txt";
-            default : exit = true;
+            default :
         }
 
         try {
