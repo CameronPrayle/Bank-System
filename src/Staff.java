@@ -3,8 +3,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Staff {
-    String[] usernames = {"admin"};
-    String[] password = {"Password123!"};
     String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: "};
 
     public Staff() {
