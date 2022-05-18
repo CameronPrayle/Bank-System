@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Staff {
@@ -26,9 +27,17 @@ public class Staff {
                     System.out.println("\n");
                     System.out.println(accountTags[0]+line);
 //                  Print all lines from account number (loops until last line for that account)
-                    for (int i=1; i<8; i++){
+
+                    int i=1;
+                    while (!Objects.equals(line, "----------")){
                         line = readFile.nextLine();
-                        System.out.println(accountTags[i] + line);
+                        try {
+                            System.out.println(accountTags[i] + line);
+                        } catch(ArrayIndexOutOfBoundsException e){
+                            continue;
+                        }
+                        i++;
+
                     }
                 }
             }
