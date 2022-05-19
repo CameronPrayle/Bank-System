@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,17 +12,7 @@ public class Main {
 //      Options Interface
         boolean exit=false;
         while (!exit){
-            System.out.println("\n*******************************");
-            System.out.println("1. Input User");
-            System.out.println("2. View User Details");
-            System.out.println("3. Transfer Funds");
-            System.out.println("4. Exit");
-            System.out.println("*******************************");
-
-//          Get user choice
-            Scanner scan = new Scanner(System.in);
-            int userChoice = scan.nextInt();
-
+            int userChoice  = Menu.main();
 //          Choice checks
             switch (userChoice) {
                 case 1 -> Account.inputDetails();
