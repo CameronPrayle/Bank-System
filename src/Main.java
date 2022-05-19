@@ -26,24 +26,7 @@ public class Main {
 
 //          Choice checks
             switch (userChoice) {
-                case 1 -> {
-                    Scanner anotherScan = new Scanner(System.in);
-                    System.out.println("\nEnter customer name: ");
-                    String nameInput = anotherScan.nextLine();
-                    System.out.println("\nEnter customer address: ");
-                    String addressInput = anotherScan.nextLine();
-                    System.out.println("\nEnter customer email address: ");
-                    // Establish input rules
-                    String emailInput = anotherScan.nextLine();
-                    int ageInput = 0;
-                    while (ageInput<16){
-                        System.out.println("\nEnter customer age: ");
-                        ageInput = anotherScan.nextInt();
-                    }
-                    double balance = 0.00;
-                    Account A1 = new Account(nameInput, addressInput, emailInput, ageInput, balance);
-                    A1.writeDetails();
-                }
+                case 1 -> Account.inputDetails();
                 case 2 -> s1.viewDetails();
                 case 4 -> exit = true;
             }

@@ -14,6 +14,25 @@ public class Account {
     float interest = 0;
 
 
+    public static void inputDetails(){
+        Scanner anotherScan = new Scanner(System.in);
+        System.out.println("\nEnter customer name: ");
+        String nameInput = anotherScan.nextLine();
+        System.out.println("\nEnter customer address: ");
+        String addressInput = anotherScan.nextLine();
+        System.out.println("\nEnter customer email address: ");
+        // Establish input rules
+        String emailInput = anotherScan.nextLine();
+        int ageInput = 0;
+        while (ageInput<16){
+            System.out.println("\nEnter customer age: ");
+            ageInput = anotherScan.nextInt();
+        }
+        double balance = 0.00;
+        Account account = new Account(nameInput, addressInput, emailInput, ageInput, balance);
+        account.writeDetails();
+    }
+
     public Account(String name, String address, String email, int age, double balance) {
         this.name = name;
         this.address = address;
