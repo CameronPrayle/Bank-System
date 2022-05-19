@@ -48,20 +48,22 @@ public class Account {
         System.out.println("3. Business");
         System.out.println("*******************************");
         Scanner scan = new Scanner(System.in);
-        String userChoice = scan.nextLine();
+        int userChoice = scan.nextInt();
         String fileChoice = "";
 
 
-        switch (userChoice) {
-            case "1" :
-                Current c1 = new Current(name, address, email, age, balance);
-                fileChoice = "Accounts.txt";
-            case "2" : Business b1 = new Business(name, address, email, age, balance);
-                fileChoice = "Business.txt";
-            case "3" : ISA i1 = new ISA(name, address, email, age, balance);
-                fileChoice = "ISA.txt";
-            default :
-        }
+        if (userChoice == 1) {
+
+            Current c1 = new Current(name, address, email, age, balance);
+            fileChoice = "Accounts.txt";
+            System.out.println("current");}
+        else if (userChoice == 2){
+            Business b1 = new Business(name, address, email, age, balance);
+            fileChoice = "Business.txt";
+            System.out.println("business");}
+        else if (userChoice == 3){
+            ISA i1 = new ISA(name, address, email, age, balance);
+            fileChoice = "ISA.txt";}
 
         try {
             FileWriter fw = new FileWriter(fileChoice, true);

@@ -20,11 +20,11 @@ public class Main {
 
 //          Get user choice
             Scanner scan = new Scanner(System.in);
-            String userChoice = scan.nextLine();
+            int userChoice = scan.nextInt();
 
 //          Choice checks
             switch (userChoice) {
-                case "1" -> {
+                case 1 -> {
                     System.out.println("\nEnter customer name: ");
                     String nameInput = scan.nextLine();
                     System.out.println("\nEnter customer address: ");
@@ -41,8 +41,8 @@ public class Main {
                     Account A1 = new Account(nameInput, addressInput, emailInput, ageInput, balance);
                     A1.writeDetails();
                 }
-                case "2" -> s1.viewDetails();
-                case "4" -> exit = true;
+                case 2 -> s1.viewDetails();
+                case 4 -> exit = true;
             }
         }
     }
