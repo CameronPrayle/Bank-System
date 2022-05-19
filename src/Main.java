@@ -25,7 +25,20 @@ public class Main {
 //          Choice checks
             switch (userChoice) {
                 case "1" -> {
-                    Account A1 = new Account("Ellie Jones", "18 Brighton Road", "ellie.jones@gmail.com", 27, 2571.82f);
+                    System.out.println("\nEnter customer name: ");
+                    String nameInput = scan.nextLine();
+                    System.out.println("\nEnter customer address: ");
+                    String addressInput = scan.nextLine();
+                    System.out.println("\nEnter customer email address: ");
+                    // Establish input rules
+                    String emailInput = scan.nextLine();
+                    int ageInput = 0;
+                    while (ageInput<16){
+                        System.out.println("\nEnter customer age: ");
+                        ageInput = scan.nextInt();
+                    }
+                    double balance = 0.00;
+                    Account A1 = new Account(nameInput, addressInput, emailInput, ageInput, balance);
                     A1.writeDetails();
                 }
                 case "2" -> s1.viewDetails();

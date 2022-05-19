@@ -10,11 +10,11 @@ public class Account {
     String address;
     String email;
     int age;
-    float balance;
+    double balance;
     float interest = 0;
 
 
-    public Account(String name, String address, String email, int age, float balance) {
+    public Account(String name, String address, String email, int age, double balance) {
         this.name = name;
         this.address = address;
         this.email = email;
@@ -38,7 +38,8 @@ public class Account {
         this.accNum = rNums;
     }
 
-    public void writeDetails() {
+    public void writeDetails() { // Not writing to the correct files
+
 
         System.out.println("\n*******************************");
         System.out.println("Enter account type: ");
