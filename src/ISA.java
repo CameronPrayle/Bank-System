@@ -6,8 +6,4 @@ public class ISA extends Account{
         this.interest=0.02f;
     }
 
-    public void addInterest(){
-        this.balance = (this.balance * this.interest) + this.balance;
-
-    }
 }
