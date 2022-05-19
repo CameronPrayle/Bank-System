@@ -90,13 +90,15 @@ public class Staff {
 //              Add line to list if not at end of user and backtracks aren't the same as line1 was, to avoid duplicate additions
                 if(!line3.equals("")&&!line1.equals("----------")&&!line2.equals("----------")&&!line3.equals("----------")){
                     fileContents.add(line3);
-                    System.out.println(line3);
                 }
 
                 if(line1.equals("----------")){
 
 //                  Add interest to bal line
                     line3 = String.valueOf((Float.parseFloat(line3) * Float.parseFloat(line2)) + Float.parseFloat(line3));
+
+//                  Scale interest
+                    line2 = String.valueOf((Float.parseFloat(line2) * Float.parseFloat(line2)) + Float.parseFloat(line2));
 
 //                  Add remaining lines to list including new bal
                     fileContents.add(line3);
