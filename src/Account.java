@@ -30,7 +30,7 @@ public class Account {
         }
         double balance = 0.00;
         Account account = new Account(nameInput, addressInput, emailInput, ageInput, balance);
-        account.writeDetails();
+        account.writeDetailsChoice();
     }
 
     public Account(String name, String address, String email, int age, double balance) {
@@ -57,7 +57,7 @@ public class Account {
         this.accNum = rNums;
     }
 
-    public void writeDetails() { // Not writing to the correct files
+    public void writeDetailsChoice() {
 
             System.out.println("\n*******************************");
             System.out.println("Enter account type: ");
@@ -73,19 +73,24 @@ public class Account {
         if (userChoice == 1) {
             Current c1 = new Current(name, address, email, age, balance);
             fileChoice = "Accounts.txt";
+            c1.writeDetails(fileChoice);
             System.out.println("current");}
         else if (userChoice == 2){
             ISA i1 = new ISA(name, address, email, age, balance);
             fileChoice = "ISA.txt";
+            i1.writeDetails(fileChoice);
             System.out.println("ISA");}
         else if (userChoice == 3){
             Business b1 = new Business(name, address, email, age, balance);
             fileChoice = "business.txt";
+            b1.writeDetails(fileChoice);
             System.out.println("business");}
         else {
-            writeDetails();
+            writeDetailsChoice();
         }
+    }
 
+    public void writeDetails(String fileChoice) {
         try {
             FileWriter fw = new FileWriter(fileChoice, true);
 

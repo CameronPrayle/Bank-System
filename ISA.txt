@@ -16,57 +16,12 @@ Bill123@gmail.com
 5526.988
 0.021249471
 ----------
-58424000
-null
-Ellie Jones
-18 Brighton Road
-ellie.jones@gmail.com
-27
-2571.82
+82361718
+24-65-69
+Fred
+72 Apple Lane
+Fred@gmail.com
+25
 0.0
-----------
-83070488
-null
-John Appleseed
-Brick Lane, london
-john@poop.com
-16
-0.0
-0.0
-----------
-68332056
-null
-man
-main
-lame
-16
-0.0
-0.0
-----------
-84375422
-null
-
-s
-s
-16
-0.0
-0.0
-----------
-33032246
-null
-o
-o
-o
-16
-0.0
-0.0
-----------
-75440600
-null
-ss
-
-s
-16
-0.0
-0.0
+0.02
 ----------
