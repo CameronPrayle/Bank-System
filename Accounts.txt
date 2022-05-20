@@ -4,7 +4,7 @@ Bill Smith
 24 Henry Road
 Bill123@gmail.com
 32
-6432.23
+6412.23
 0.0
 ----------
 88278634
@@ -23,22 +23,5 @@ Ellie Jones
 ellie.jones@gmail.com
 27
 2571.82
-0.0
-----------70841404
-null
-
-a
-a
-16
-0.0
-0.0
-----------
-54338027
-null
-jo
-bo
-flo
-16
-0.0
 0.0
 ----------

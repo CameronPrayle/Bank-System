@@ -1,5 +1,9 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -111,5 +115,98 @@ public class Account {
             System.out.println("Error");
         }
     }
+
+
+
+    public static void transferDetails() {
+        Scanner anotherScan = new Scanner(System.in);
+
+//      Get sender details
+        System.out.println("Input account number to transfer from:");
+        String accFrom = anotherScan.nextLine();
+        System.out.println("Input sort-code to transfer from:");
+        String sortFrom = anotherScan.nextLine();
+
+
+//      Get receiver details
+        System.out.println("Input account number to transfer to:");
+        String accTo = anotherScan.nextLine();
+        System.out.println("Input sort-code to transfer to:");
+        String sortTo = anotherScan.nextLine();
+
+//      Get amount
+        System.out.println("Input amount to transfer:");
+        float amountToTransfer = Float.parseFloat(anotherScan.nextLine());
+
+        transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
+    }
+
+    public static void transfer(String accFrom, String accTo, String sortFrom, String sortTo, float amountToTransfer, boolean send){
+        String accTypeFile;
+        String accAction;
+
+        if(!send){
+            accTypeFile=sortFrom;
+            accAction=accFrom;
+        }else{
+            accTypeFile=sortTo;
+            accAction=accTo;
+        }
+
+        switch (accTypeFile) {
+//          Current
+            case "24-65-32" -> accTypeFile="Accounts.txt";
+//          ISA
+            case "24-65-69" -> accTypeFile="ISA.txt";
+//          Business
+            case "24-65-27" -> accTypeFile="Business.txt";
+        }
+
+
+        File f = new File(accTypeFile);
+        try {
+            List<String> fileContents = new ArrayList<>();
+            String currentLine;
+            Scanner readFile = new Scanner(f);
+
+            while(readFile.hasNextLine()){
+                currentLine = readFile.nextLine();
+                fileContents.add(currentLine);
+                if(accAction.equals(currentLine)){
+                    for(int i=0; i<6; i++){
+                        currentLine=readFile.nextLine();
+                        if(i==5){
+                            if(!send){
+                                currentLine= String.valueOf(Float.parseFloat(currentLine)-amountToTransfer);
+                                fileContents.add(currentLine);
+                            }else{
+                                currentLine= String.valueOf(Float.parseFloat(currentLine)+amountToTransfer);
+                                fileContents.add(currentLine);
+                            }
+                        }else{
+                            fileContents.add(currentLine);
+                        }
+                    }
+                }
+            }
+
+
+//          Write contents of list to txt file
+            FileWriter fw = new FileWriter(accTypeFile);
+            for(int i=0; i<fileContents.size(); i++){
+                fw.write(fileContents.get(i)+"\n");
+            }
+            fw.close();
+
+            if (!send) {
+                transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, true);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Invalid sort-code");
+            transferDetails();
+        }
+    }
 }
+
 

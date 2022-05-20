@@ -17,6 +17,7 @@ public class Main {
             switch (userChoice) {
                 case 1 -> Account.inputDetails();
                 case 2 -> s1.viewDetails();
+                case 3 -> Account.transferDetails();
                 case 4 -> exit = true;
             }
         }
