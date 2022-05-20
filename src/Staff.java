@@ -51,29 +51,41 @@ public class Staff {
 
 //      Split up date string to separate month
         String[] dateSplit = date.split(" ");
+        String testing = "lol";
 
         try {
             File f = new File("Date.txt");
             Scanner readFile = new Scanner(f);
 
-//          if the month doesn't equal the month in the txt file update the date and add the monthly interest
+//          if the current month doesn't equal the month in the txt file update the date and add the monthly interest
             if(!dateSplit[1].equals(readFile.nextLine())){
                 FileWriter fw = new FileWriter("Date.txt");
                 fw.write(dateSplit[1]);
                 fw.close();
-                addInterest();
+                addInterest(false);
+
+//              if the current month is April then add business charge using addInterest()
+                if(dateSplit[1].equals("Apr")){
+                    addInterest(true);
+                }
             }
+
+
 
         } catch (IOException e) {
             System.out.println("Error");
         }
     }
 
-    public void addInterest(){
+    public void addInterest(boolean businessCharge){
         List<String> fileContents = new ArrayList<>();
+        String fileType;
+        if(businessCharge){
+            fileType = "Business.txt";
+        }else{fileType = "ISA.txt";}
 
         try {
-            File f = new File("ISA.txt");
+            File f = new File(fileType);
             Scanner readFile = new Scanner(f);
 
 //          3 variables to backtrack from end of user up to Bal
@@ -87,18 +99,28 @@ public class Staff {
                 line2 = line1;
                 line1 = readFile.nextLine();
 
-//              Add line to list if not at end of user and backtracks aren't the same as line1 was, to avoid duplicate additions
+//              Add line3 to list if not at end of user and backtracks aren't the same as line1 was at the end of the user, to avoid duplicate additions
                 if(!line3.equals("")&&!line1.equals("----------")&&!line2.equals("----------")&&!line3.equals("----------")){
                     fileContents.add(line3);
                 }
 
                 if(line1.equals("----------")){
 
-//                  Add interest to bal line
-                    line3 = String.valueOf((Float.parseFloat(line3) * Float.parseFloat(line2)) + Float.parseFloat(line3));
+//                  If business charge run, take the charge away from bal. else, it's an interest run.
+                    if (businessCharge){
+                        line3 = String.valueOf(Float.parseFloat(line3) - 50f);
+                        System.out.println("Business run: " + line3 + "\n");
 
-//                  Scale interest
-                    line2 = String.valueOf((Float.parseFloat(line2) * Float.parseFloat(line2)) + Float.parseFloat(line2));
+                    }else{
+
+//                      Add interest to bal line
+                        line3 = String.valueOf((Float.parseFloat(line3) * Float.parseFloat(line2)) + Float.parseFloat(line3));
+
+//                      Scale interest
+                        line2 = String.valueOf((Float.parseFloat(line2) * Float.parseFloat(line2)) + Float.parseFloat(line2));
+                        System.out.println("Interest run: " + line3 + "\n");
+                    }
+
 
 //                  Add remaining lines to list including new bal
                     fileContents.add(line3);
@@ -108,7 +130,7 @@ public class Staff {
             }
 
 //          Write contents of list to txt file
-            FileWriter fw = new FileWriter("ISA.txt");
+            FileWriter fw = new FileWriter(fileType);
             for(int i=0; i<fileContents.size(); i++){
                 fw.write(fileContents.get(i)+"\n");
             }
@@ -118,8 +140,6 @@ public class Staff {
             System.out.println("Error");
         }
     }
-
-
 
 }
 

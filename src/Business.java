@@ -4,4 +4,6 @@ public class Business extends Account{
         super(name, address, email, age, balance);
         this.sortCode = "24-65-27";
     }
+
+
 }
