@@ -91,11 +91,11 @@ public class Staff {
 //          3 variables to backtrack from end of user up to Bal
             String line1="";
             String line2="";
-            String line3="";
+
 
             while (readFile.hasNextLine()) {
 //              Backtracking
-                line3 = line2;
+                String line3 = line2;
                 line2 = line1;
                 line1 = readFile.nextLine();
 
@@ -131,8 +131,8 @@ public class Staff {
 
 //          Write contents of list to txt file
             FileWriter fw = new FileWriter(fileType);
-            for(int i=0; i<fileContents.size(); i++){
-                fw.write(fileContents.get(i)+"\n");
+            for (String fileContent : fileContents) {
+                fw.write(fileContent + "\n");
             }
             fw.close();
 

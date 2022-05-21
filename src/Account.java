@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,13 +17,6 @@ public class Account {
     double balance;
     float interest = 0;
 
-    public static <AddressException extends Throwable> boolean isValidEmailAddress(String email) {
-        boolean result = true;
-        InternetAddress emailAddr = new InternetAddress(email);
-        emailAddr.validate();
-
-        return result;
-    }
 
     public static void inputDetails(){
         Scanner anotherScan = new Scanner(System.in);
@@ -32,7 +26,7 @@ public class Account {
         String addressInput = anotherScan.nextLine();
         System.out.println("\nEnter customer email address: ");
         // Establish input rules
-        String emailInput = String.valueOf(InternetAddress.InternetAddress());
+        String emailInput = anotherScan.nextLine();
         int ageInput = 0;
         while (ageInput<16){
             System.out.println("\nEnter customer age: ");
@@ -199,8 +193,8 @@ public class Account {
 
 //          Write contents of list to txt file
             FileWriter fw = new FileWriter(accTypeFile);
-            for (String fileContent : fileContents) {
-                fw.write(fileContent + "\n");
+            for(int i=0; i<fileContents.size(); i++){
+                fw.write(fileContents.get(i)+"\n");
             }
             fw.close();
 
