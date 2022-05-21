@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,17 +17,23 @@ public class Account {
     float interest = 0;
 
 
-    public static void inputDetails(){
+    public static void inputDetails() {
         Scanner anotherScan = new Scanner(System.in);
         System.out.println("\nEnter customer name: ");
         String nameInput = anotherScan.nextLine();
         System.out.println("\nEnter customer address: ");
         String addressInput = anotherScan.nextLine();
-        System.out.println("\nEnter customer email address: ");
-        // Establish input rules
-        String emailInput = anotherScan.nextLine();
+        String emailInput;
+        do {
+            assert false;
+            System.out.println("\nEnter customer email address: ");
+            emailInput = anotherScan.nextLine();
+
+            // Establish input rules
+
+        } while (!emailInput.contains("@"));
         int ageInput = 0;
-        while (ageInput<16){
+        while (ageInput < 16) {
             System.out.println("\nEnter customer age: ");
             ageInput = anotherScan.nextInt();
         }
@@ -73,7 +78,7 @@ public class Account {
             int userChoice = scan.nextInt();
 
 
-        String fileChoice = "";
+        String fileChoice;
         if (userChoice == 1) {
             Current c1 = new Current(name, address, email, age, balance);
             fileChoice = "Accounts.txt";
@@ -193,8 +198,8 @@ public class Account {
 
 //          Write contents of list to txt file
             FileWriter fw = new FileWriter(accTypeFile);
-            for(int i=0; i<fileContents.size(); i++){
-                fw.write(fileContents.get(i)+"\n");
+            for (String fileContent : fileContents) {
+                fw.write(fileContent + "\n");
             }
             fw.close();
 
