@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,9 +23,12 @@ public class Account {
         String nameInput = anotherScan.nextLine();
         System.out.println("\nEnter customer address: ");
         String addressInput = anotherScan.nextLine();
-        System.out.println("\nEnter customer email address: ");
+        String emailInput = "";
+        while (!emailInput.contains("@")){
+            System.out.println("\nEnter customer email address: ");
         // Establish input rules
-        String emailInput = anotherScan.nextLine();
+            emailInput = anotherScan.nextLine();
+        }
         int ageInput = 0;
         while (ageInput<16){
             System.out.println("\nEnter customer age: ");
@@ -193,8 +195,8 @@ public class Account {
 
 //          Write contents of list to txt file
             FileWriter fw = new FileWriter(accTypeFile);
-            for(int i=0; i<fileContents.size(); i++){
-                fw.write(fileContents.get(i)+"\n");
+            for (String fileContent : fileContents) {
+                fw.write(fileContent + "\n");
             }
             fw.close();
 
