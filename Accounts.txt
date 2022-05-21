@@ -4,7 +4,7 @@ Bill Smith
 24 Henry Road
 Bill123@gmail.com
 32
-6412.23
+6402.23
 0.0
 ----------
 88278634
@@ -13,7 +13,7 @@ Ellie Jones
 18 Brighton Road
 ellie.jones@gmail.com
 27
-2571.82
+2581.82
 0.0
 ----------
 78517353
