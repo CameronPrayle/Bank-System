@@ -1,50 +1,28 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Account {
+
+    //Variables:
     String accNum;
     String sortCode;
     String name;
     String address;
+    String previousAddress1;
+    String previousAddress2;
     String email;
     int age;
     double balance;
     float interest = 0;
 
-
-    public static void inputDetails() {
-        Scanner anotherScan = new Scanner(System.in);
-        System.out.println("\nEnter customer name: ");
-        String nameInput = anotherScan.nextLine();
-        System.out.println("\nEnter customer address: ");
-        String addressInput = anotherScan.nextLine();
-        String emailInput;
-        do {
-            assert false;
-            System.out.println("\nEnter customer email address: ");
-            emailInput = anotherScan.nextLine();
-
-            // Establish input rules
-
-        } while (!emailInput.contains("@"));
-        int ageInput = 0;
-        while (ageInput < 16) {
-            System.out.println("\nEnter customer age: ");
-            ageInput = anotherScan.nextInt();
-        }
-        double balance = 0.00;
-        Account account = new Account(nameInput, addressInput, emailInput, ageInput, balance);
-        account.writeDetailsChoice();
-    }
-
-    public Account(String name, String address, String email, int age, double balance) {
+    //Constructor:
+    public Account(String name, String address, String previousAddress1, String previousAddress2, String email, int age, double balance) {
         this.name = name;
         this.address = address;
+        this.previousAddress1 = previousAddress1;
+        this.previousAddress2 = previousAddress2;
         this.email = email;
         this.age = age;
         this.balance = balance;
@@ -66,6 +44,55 @@ public class Account {
         this.accNum = rNums;
     }
 
+    private static String askForPreviousCustomerAddress(){
+        //setting up scanner:
+        Scanner addressScanner = new Scanner(System.in);
+        System.out.println("\nHas customer lived at any other addresses in past 3 years? (y/n) ");
+        String addressQAnswer = addressScanner.nextLine();
+        String previousAddressInput = "";
+        if(addressQAnswer.equalsIgnoreCase("y")){
+            System.out.println("\nEnter previous customer address: ");
+            previousAddressInput = addressScanner.nextLine();
+        }
+        return previousAddressInput;
+    }
+
+    public static void inputDetails() {
+        Scanner anotherScan = new Scanner(System.in);
+        System.out.println("\nEnter customer name: ");
+        String nameInput = anotherScan.nextLine();
+        System.out.println("\nEnter customer address: ");
+        String addressInput = anotherScan.nextLine();
+
+        //Checking for previous addresses in past 3 years:
+        String previousAddress1 = askForPreviousCustomerAddress();
+        String previousAddress2 = "";
+        if(!Objects.equals(previousAddress1, ""))
+        {
+            previousAddress2 = askForPreviousCustomerAddress();
+        }
+
+        String emailInput;
+        do {
+            assert false;
+            System.out.println("\nEnter customer email address: ");
+            emailInput = anotherScan.nextLine();
+
+            // Establish input rules
+
+        } while (!emailInput.contains("@"));
+        int ageInput = 0;
+        while (ageInput < 16) {
+            System.out.println("\nEnter customer age: ");
+            ageInput = anotherScan.nextInt();
+        }
+        double balance = 0.00;
+        Account account = new Account(nameInput, addressInput,previousAddress1,previousAddress2, emailInput, ageInput, balance);
+        account.writeDetailsChoice();
+    }
+
+
+
     public void writeDetailsChoice() {
 
             System.out.println("\n*******************************");
@@ -80,20 +107,20 @@ public class Account {
 
         String fileChoice;
         if (userChoice == 1) {
-            Current c1 = new Current(name, address, email, age, balance);
+            Current c1 = new Current(name, address, previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "Accounts.txt";
             c1.writeDetails(fileChoice);
             System.out.println("current");}
         else if (userChoice == 2){
-            ISA i1 = new ISA(name, address, email, age, balance);
+            ISA i1 = new ISA(name, address,previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "ISA.txt";
             i1.writeDetails(fileChoice);
             System.out.println("ISA");}
         else if (userChoice == 3){
-            Business b1 = new Business(name, address, email, age, balance);
+            Business b1 = new Business(name, address,previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "business.txt";
             b1.writeDetails(fileChoice);
-            System.out.println("business");}
+            System.out.println("Business");}
         else {
             writeDetailsChoice();
         }
@@ -111,6 +138,8 @@ public class Account {
                     "\n" + this.age +
                     "\n" + this.balance +
                     "\n" + this.interest +
+                    "\n" + this.previousAddress1 +
+                    "\n" + this.previousAddress2 +
                     "\n" + "----------" + "\n");
 
             fw.close();

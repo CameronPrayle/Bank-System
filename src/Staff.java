@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Staff {
-    String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: "};
+    String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: ", "Previous Address 1:", "Previous Address 2:"};
 
     public Staff() {
     }
