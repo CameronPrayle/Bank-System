@@ -124,28 +124,86 @@ public class Account {
 
 
     public static void transferDetails() {
-        Scanner anotherScan = new Scanner(System.in);
+        String accFrom;
+        String sortFrom;
+        String accTo;
+        String sortTo;
+        float amountToTransfer = 0;
 
 //      Get sender details
-        System.out.println("Input account number to transfer from:");
-        String accFrom = anotherScan.nextLine();
-        System.out.println("Input sort-code to transfer from:");
-        String sortFrom = anotherScan.nextLine();
-
+        sortFrom = sortcodeCheck("From");
+        accFrom = accNumCheck(sortFrom,"From");
 
 //      Get receiver details
-        System.out.println("Input account number to transfer to:");
-        String accTo = anotherScan.nextLine();
-        System.out.println("Input sort-code to transfer to:");
-        String sortTo = anotherScan.nextLine();
+        sortTo = sortcodeCheck("To");
+        accTo = accNumCheck(sortTo,"To");
 
 //      Get amount
+        boolean valid=false;
         System.out.println("Input amount to transfer:");
-        float amountToTransfer = Float.parseFloat(anotherScan.nextLine());
+        while (!valid){
+            try{
+                Scanner amountScan = new Scanner(System.in);
+                amountToTransfer = Float.parseFloat(amountScan.nextLine());
+                valid=true;
+            }catch (Exception e){
+                System.out.println("Amount must be a number:");
+            }
+        }
 
         transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
     }
 
+    public static String accNumCheck(String sortcode, String transType){
+        String accNum="";
+        boolean accFound=false;
+
+        switch (sortcode) {
+//          Current
+            case "24-65-32" -> sortcode="Accounts.txt";
+//          ISA
+            case "24-65-69" -> sortcode="ISA.txt";
+//          Business
+            case "24-65-27" -> sortcode="Business.txt";
+        }
+
+        while(!accFound){
+            System.out.println("Input account number to transfer "  + transType + ":");
+            Scanner anotherScan = new Scanner(System.in);
+            accNum = anotherScan.nextLine();
+
+            File f = new File(sortcode);
+            try {
+                String currentLine;
+                Scanner readFile = new Scanner(f);
+
+                while(readFile.hasNextLine()) {
+                    currentLine = readFile.nextLine();
+                    if (accNum.equals(currentLine)) {
+                        accFound=true;
+                    }
+                }
+                if (!accFound) {
+                    System.out.println("Invalid account number");
+                }
+            } catch (IOException e) {
+                System.out.println("Invalid sort-code");
+            }
+        }
+        return accNum;
+    }
+    public static String sortcodeCheck(String transType){
+        String sortcode="";
+        while(!sortcode.equals("24-65-32")&&!sortcode.equals("24-65-69")&&!sortcode.equals("24-65-27")){
+            Scanner anotherScan = new Scanner(System.in);
+            System.out.println("Input sort-code to transfer " + transType + ":");
+            sortcode = anotherScan.nextLine();
+            if(!sortcode.equals("24-65-32")&&!sortcode.equals("24-65-69")&&!sortcode.equals("24-65-27")){
+                System.out.println("Sort-code invalid");
+            }
+        }
+        return sortcode;
+    }
     public static void transfer(String accFrom, String accTo, String sortFrom, String sortTo, float amountToTransfer, boolean send){
         String accTypeFile;
         String accAction;
@@ -195,7 +253,6 @@ public class Account {
                 }
             }
 
-
 //          Write contents of list to txt file
             FileWriter fw = new FileWriter(accTypeFile);
             for (String fileContent : fileContents) {
@@ -208,7 +265,7 @@ public class Account {
             }
 
         } catch (IOException e) {
-            System.out.println("Invalid sort-code");
+            System.out.println("Invalid sort-code2");
             transferDetails();
         }
     }

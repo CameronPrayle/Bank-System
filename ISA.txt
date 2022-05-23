@@ -4,7 +4,7 @@ Ellie Jones
 18 Brighton Road
 ellie.jones@gmail.com
 27
-3393.2712
+2460.6694
 0.02486609
 ----------
 26445672
@@ -13,7 +13,7 @@ Bill John
 18 Surely Road
 Bill123@gmail.com
 35
-6467.6694
+5100.0
 0.02486609
 ----------
 82361718
@@ -22,7 +22,7 @@ Fred
 72 Apple Lane
 Fred@gmail.com
 25
-5680.68
+6180.68
 0.023177177
 ----------
 16436374
