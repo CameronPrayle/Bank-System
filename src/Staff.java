@@ -80,51 +80,58 @@ public class Staff {
     public void addInterest(boolean businessCharge){
         List<String> fileContents = new ArrayList<>();
         String fileType;
+        String sortcode;
+        String balance;
+        String interest = "";
+        String line1;
+
         if(businessCharge){
             fileType = "Business.txt";
-        }else{fileType = "ISA.txt";}
+            sortcode= "24-65-27";
+        }else{
+            fileType = "ISA.txt";
+            sortcode= "24-65-69";
+        }
 
         try {
             File f = new File(fileType);
             Scanner readFile = new Scanner(f);
 
-//          3 variables to backtrack from end of user up to Bal
-            String line1="";
-            String line2="";
-
-
             while (readFile.hasNextLine()) {
-//              Backtracking
-                String line3 = line2;
-                line2 = line1;
                 line1 = readFile.nextLine();
 
-//              Add line3 to list if not at end of user and backtracks aren't the same as line1 was at the end of the user, to avoid duplicate additions
-                if(!line3.equals("")&&!line1.equals("----------")&&!line2.equals("----------")&&!line3.equals("----------")){
-                    fileContents.add(line3);
-                }
+                if(line1.equals(sortcode)){
+                    for(int i=0; i<7; i++){
+//                      Backtracking since balance comes first in the txt file
+                        balance = interest;
+                        interest = line1;
+                        if(i==5){
+                        }
 
-                if(line1.equals("----------")){
+                        else if(i==6){
+//                          If business charge run, take the charge away from bal. else, it's an interest run.
+                            if(businessCharge){
+                                balance=String.valueOf(Float.parseFloat(balance)-50f);
+                                fileContents.add(balance);
+                                fileContents.add(interest);
 
-//                  If business charge run, take the charge away from bal. else, it's an interest run.
-                    if (businessCharge){
-                        line3 = String.valueOf(Float.parseFloat(line3) - 50f);
-                        System.out.println("Business run: " + line3 + "\n");
+                            }else{
+//                              Add interest to bal line
+                                balance = String.valueOf((Float.parseFloat(balance) * Float.parseFloat(interest)) + Float.parseFloat(balance));
+                                fileContents.add(balance);
 
-                    }else{
-
-//                      Add interest to bal line
-                        line3 = String.valueOf((Float.parseFloat(line3) * Float.parseFloat(line2)) + Float.parseFloat(line3));
-
-//                      Scale interest
-                        line2 = String.valueOf((Float.parseFloat(line2) * Float.parseFloat(line2)) + Float.parseFloat(line2));
-                        System.out.println("Interest run: " + line3 + "\n");
+//                              Scale interest
+                                interest = String.valueOf((Float.parseFloat(interest) * Float.parseFloat(interest)) + Float.parseFloat(interest));
+                                fileContents.add(String.valueOf(interest));
+                            }
+                        }
+                        else{
+                            fileContents.add(line1);
+                        }
+                        line1 = readFile.nextLine();
                     }
-
-
-//                  Add remaining lines to list including new bal
-                    fileContents.add(line3);
-                    fileContents.add(line2);
+                    fileContents.add(line1);
+                }else{
                     fileContents.add(line1);
                 }
             }

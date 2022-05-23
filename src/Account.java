@@ -264,9 +264,13 @@ public class Account {
             while(readFile.hasNextLine()){
                 currentLine = readFile.nextLine();
                 fileContents.add(currentLine);
+
+//              If the account number (either sender or receiver) is equal to current line
                 if(accAction.equals(currentLine)){
                     for(int i=0; i<6; i++){
                         currentLine=readFile.nextLine();
+
+//                      when i is equal to the line number of the balance for that account
                         if(i==5){
                             if(!send){
                                 currentLine= String.valueOf(Float.parseFloat(currentLine)-amountToTransfer);
