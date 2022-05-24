@@ -14,20 +14,31 @@ public class Staff {
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
         System.out.println("\nEnter sort code: ");
-        String sort_code = scan.nextLine();
+        String sortcode = scan.nextLine();
+        switch (sortcode) {
+//          Current
+            case "24-65-32" -> sortcode="Accounts.txt";
+//          ISA
+            case "24-65-69" -> sortcode="ISA.txt";
+//          Business
+            case "24-65-27" -> sortcode="Business.txt";
+        }
+
+        boolean accFound=false;
 
         try {
-            File f = new File("Accounts.txt");
+            File f = new File(sortcode);
             Scanner readFile = new Scanner(f);
             String line;
 
             while (readFile.hasNextLine()) {
                 line = readFile.nextLine();
                 if(line.equals(userChoice)){
+                    accFound=true;
                     System.out.println("\n");
                     System.out.println(accountTags[0]+line);
-//                  Print all lines from account number (loops until last line for that account)
 
+//                  Print all lines from account number (loops until last line for that account)
                     int i=1;
                     while (!Objects.equals(line, "----------")){
                         line = readFile.nextLine();
@@ -41,8 +52,14 @@ public class Staff {
                     }
                 }
             }
+
+            if(!accFound){
+                System.out.println("Account not found");
+                viewDetails();
+            }
         } catch (IOException e) {
-            System.out.println("Error");
+            System.out.println("Account not found");
+            viewDetails();
         }
     }
 
