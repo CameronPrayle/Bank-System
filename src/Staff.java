@@ -9,7 +9,22 @@ public class Staff {
     public Staff() {
     }
 
-    public void viewDetails(){
+    public void viewWhichDetails(){
+        System.out.println("Do you want to:" +
+                "\n1. View all details" +
+                "\n2. Just Balance");
+        Scanner scan = new Scanner(System.in);
+        String userChoice = scan.nextLine();
+        if(userChoice.equals("1")){
+            viewDetails(false);
+        }else if (userChoice.equals("2")) {
+            viewDetails(true);
+        }else{
+            System.out.println("Enter either 1 or 2");
+            viewWhichDetails();
+        }
+    }
+    public void viewDetails(boolean justBalance){
         System.out.println("\nEnter account number: ");
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
@@ -38,28 +53,41 @@ public class Staff {
                     System.out.println("\n");
                     System.out.println(accountTags[0]+line);
 
-//                  Print all lines from account number (loops until last line for that account)
-                    int i=1;
-                    while (!Objects.equals(line, "----------")){
-                        line = readFile.nextLine();
-                        try {
-                            System.out.println(accountTags[i] + line);
-                        } catch(ArrayIndexOutOfBoundsException e){
-                            continue;
-                        }
-                        i++;
+                    if(!justBalance){
+//                      Print all lines from account number (loops until last line for that account)
+                        int i=1;
+                        while (!Objects.equals(line, "----------")){
+                            line = readFile.nextLine();
+                            try {
+                                System.out.println(accountTags[i] + line);
+                            } catch(ArrayIndexOutOfBoundsException e){
+                                continue;
+                            }
+                            i++;
 
+                        }
+
+
+                    }else{
+                        for (int i=0; i<6; i++){
+                            line = readFile.nextLine();
+
+//                          When i is equal to the line number of the balance for that account
+                            if(i==5){
+                                System.out.println(accountTags[i+1] + line);
+                            }
+                        }
                     }
                 }
             }
 
             if(!accFound){
                 System.out.println("Account not found");
-                viewDetails();
+                viewDetails(justBalance);
             }
         } catch (IOException e) {
             System.out.println("Account not found");
-            viewDetails();
+            viewDetails(justBalance);
         }
     }
 

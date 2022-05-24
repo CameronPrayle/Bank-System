@@ -19,7 +19,7 @@ public class Main {
 //          Choice checks
             switch (userChoice) {
                 case "1" -> Account.inputDetails();
-                case "2" -> s1.viewDetails();
+                case "2" -> s1.viewWhichDetails();
                 case "3" -> Account.transferDetails();
                 case "4" -> exit = true;
                 default -> {
