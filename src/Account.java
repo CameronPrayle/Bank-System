@@ -81,10 +81,19 @@ public class Account {
             // Establish input rules
 
         } while (!emailInput.contains("@"));
+
         int ageInput = 0;
         while (ageInput < 16) {
+            Scanner ageScan = new Scanner(System.in);
             System.out.println("\nEnter customer age: ");
-            ageInput = anotherScan.nextInt();
+            try{
+                ageInput = ageScan.nextInt();
+                if(ageInput<16){
+                    System.out.println("\nAge must be over 16");
+                }
+            }catch (Exception e){
+                System.out.println("\nYou must enter a number");
+            }
         }
         double balance = 0.00;
         Account account = new Account(nameInput, addressInput,previousAddress1,previousAddress2, emailInput, ageInput, balance);
@@ -101,8 +110,18 @@ public class Account {
             System.out.println("2. ISA");
             System.out.println("3. Business");
             System.out.println("*******************************");
-            Scanner scan = new Scanner(System.in);
-            int userChoice = scan.nextInt();
+            boolean valid=false;
+            int userChoice=0;
+            while(!valid){
+                Scanner scan = new Scanner(System.in);
+                try{
+                    userChoice = scan.nextInt();
+                    valid=true;
+                }catch (Exception e){
+                    System.out.println("You must enter a number");
+                }
+            }
+
 
 
         String fileChoice;
@@ -122,6 +141,7 @@ public class Account {
             b1.writeDetails(fileChoice);
             System.out.println("Business");}
         else {
+            System.out.println("Invalid choice");
             writeDetailsChoice();
         }
     }

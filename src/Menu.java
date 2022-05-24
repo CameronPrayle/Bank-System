@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Menu {
-    public static int main (){
+    public static String main (){
         System.out.println("\n*******************************");
         System.out.println("1. Input User");
         System.out.println("2. View User Details");
@@ -11,6 +11,6 @@ public class Menu {
 
 //          Get user choice
         Scanner scan = new Scanner(System.in);
-        return scan.nextInt();
+        return scan.nextLine();
     }
 }

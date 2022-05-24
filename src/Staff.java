@@ -51,7 +51,6 @@ public class Staff {
 
 //      Split up date string to separate month
         String[] dateSplit = date.split(" ");
-        String testing = "lol";
 
         try {
             File f = new File("Date.txt");

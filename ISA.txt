@@ -1,65 +1,33 @@
-78517353
+30812358
 24-65-69
-Ellie Jones
-18 Brighton Road
-ellie.jones@gmail.com
-27
-2586.1248
-0.026133867
-----------
-26445672
-24-65-69
-Bill John
-18 Surely Road
-Bill123@gmail.com
-35
-5360.019
-0.026133867
-----------
-82361718
-24-65-69
-Fred
-72 Apple Lane
-Fred@gmail.com
-25
-6473.8984
-0.02427673
-----------
-16436374
-24-65-69
-1
+Sarah Jones
+43 Long Road
+QueenSarah@gmail.com
+24
+5100.0
+0.020399999
+1 Short Road
 
-@
-16
-0.0
-0.020816159
 ----------
-48636303
+15236840
 24-65-69
-wer
-s
-@
-16
-0.0
-0.020816159
+Bailey Mason
+66 Olympia Way
+BimbleBomble@Binny.com
+20
+127.8264
+0.020399999
+
+
 ----------
-66545844
+77438870
 24-65-69
-Test
-Test
-Test@
-40
-0.0
-0.020816159
-----------
-46008214
-24-65-69
-Cameron Payle
-3 Wirrel Street
-payleBoi98@live.com
-17
-0.0
-0.020816159
-4 Wirrel Street
-20 Thompson Road
+Gorbyss Grivshenki 
+43 Stovik Lane
+Gobo1@Gob.ru
+62
+765.0
+0.020399999
+12 Ivan Street 
+32 Pivovivic Road
 ----------
