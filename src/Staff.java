@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Staff {
-    String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: ", "Previous Address 1:", "Previous Address 2:"};
+    String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: ", "Previous Address 1: ", "Previous Address 2: ", "Company Name: "};
 
     public Staff() {
     }
@@ -59,7 +59,9 @@ public class Staff {
                         while (!Objects.equals(line, "----------")){
                             line = readFile.nextLine();
                             try {
-                                System.out.println(accountTags[i] + line);
+                                if(!line.equals("----------")){
+                                    System.out.println(accountTags[i] + line);
+                                }
                             } catch(ArrayIndexOutOfBoundsException e){
                                 continue;
                             }

@@ -149,17 +149,29 @@ public class Account {
             Current c1 = new Current(name, address, previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "Accounts.txt";
             c1.writeDetails(fileChoice);
-            System.out.println("current");}
+            }
         else if (userChoice == 2){
             ISA i1 = new ISA(name, address,previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "ISA.txt";
             i1.writeDetails(fileChoice);
-            System.out.println("ISA");}
+            }
         else if (userChoice == 3){
-            Business b1 = new Business(name, address,previousAddress1, previousAddress2, email, age, balance);
+
+//          Get company name
+            String company="";
+            while (company.equals("")){
+                Scanner buisnessScan = new Scanner(System.in);
+                System.out.println("Enter your company name");
+                company = buisnessScan.nextLine();
+                if (company.equals("")){
+                    System.out.println("you must enter a valid company name");
+                }
+            }
+
+            Business b1 = new Business(name, address,previousAddress1, previousAddress2, email, age, balance, company);
             fileChoice = "business.txt";
             b1.writeDetails(fileChoice);
-            System.out.println("Business");}
+            }
         else {
             System.out.println("Invalid choice");
             writeDetailsChoice();
@@ -181,6 +193,7 @@ public class Account {
                     "\n" + this.previousAddress1 +
                     "\n" + this.previousAddress2 +
                     "\n" + "----------" + "\n");
+
 
             fw.close();
             System.out.println("Information Saved");
