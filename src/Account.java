@@ -27,7 +27,13 @@ public class Account {
         this.age = age;
         this.balance = balance;
 
-//      Generate random account number
+
+        this.accNum = GenerateRandomAccountNumber();
+    }
+
+    //      Generate random account number:
+    String GenerateRandomAccountNumber(){
+
         Random rand = new Random();
         String rNums = "";
         for (int i=0; i<8;i++){
@@ -41,7 +47,7 @@ public class Account {
             }
             rNums = rNums + rNum;
         }
-        this.accNum = rNums;
+        return rNums;
     }
 
     private static String askForPreviousCustomerAddress(){
@@ -321,6 +327,28 @@ public class Account {
             System.out.println("Invalid sort-code2");
             transferDetails();
         }
+    }
+
+    //Function to check if account number already exists:
+    boolean CheckAccountNumberAlreadyExists(String filePathName){
+        File f = new File(filePathName);
+        boolean accountNumExists = false;
+        try {
+            String currentLine;
+            Scanner readFile = new Scanner(f);
+
+            while(readFile.hasNextLine()) {
+                currentLine = readFile.nextLine();
+                if (this.accNum.equals(currentLine)) {
+                    accountNumExists = true;
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Invalid sort-code");
+        }
+
+        return accountNumExists;
     }
 }
 
