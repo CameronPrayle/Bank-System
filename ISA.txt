@@ -5,7 +5,7 @@ Sarah Jones
 QueenSarah@gmail.com
 24
 5100.0
-0.020399999
+0.020399988
 1 Short Road
 
 ----------
@@ -16,7 +16,7 @@ Bailey Mason
 BimbleBomble@Binny.com
 20
 127.8264
-0.020399999
+0.020399988
 
 
 ----------
@@ -27,7 +27,7 @@ Gorbyss Grivshenki
 Gobo1@Gob.ru
 62
 765.0
-0.020399999
+0.020399988
 12 Ivan Street 
 32 Pivovivic Road
 ----------
