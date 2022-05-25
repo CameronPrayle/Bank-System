@@ -62,11 +62,25 @@ public class Account {
         }
         return previousAddressInput;
     }
+    public static boolean isAlpha(String name) {
+        char[] chars = name.toCharArray();
 
+        for (char c : chars) {
+            if(!Character.isLetter(c)) {
+                if (c !=' '){
+                    System.out.println("Names can only consist of letters");
+                    return false;}
+            }
+        }
+        return true;
+    }
     public static void inputDetails() {
         Scanner anotherScan = new Scanner(System.in);
+        String nameInput;
+        do{
         System.out.println("\nEnter customer name: ");
-        String nameInput = anotherScan.nextLine();
+        nameInput = anotherScan.nextLine();
+        } while (!isAlpha(nameInput));
         System.out.println("\nEnter customer address: ");
         String addressInput = anotherScan.nextLine();
 
