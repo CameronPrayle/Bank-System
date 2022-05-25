@@ -1,50 +1,28 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Account {
+
+    //Variables:
     String accNum;
     String sortCode;
     String name;
     String address;
+    String previousAddress1;
+    String previousAddress2;
     String email;
     int age;
     double balance;
     float interest = 0;
 
-
-    public static void inputDetails() {
-        Scanner anotherScan = new Scanner(System.in);
-        System.out.println("\nEnter customer name: ");
-        String nameInput = anotherScan.nextLine();
-        System.out.println("\nEnter customer address: ");
-        String addressInput = anotherScan.nextLine();
-        String emailInput;
-        do {
-            assert false;
-            System.out.println("\nEnter customer email address: ");
-            emailInput = anotherScan.nextLine();
-
-            // Establish input rules
-
-        } while (!emailInput.contains("@"));
-        int ageInput = 0;
-        while (ageInput < 16) {
-            System.out.println("\nEnter customer age: ");
-            ageInput = anotherScan.nextInt();
-        }
-        double balance = 0.00;
-        Account account = new Account(nameInput, addressInput, emailInput, ageInput, balance);
-        account.writeDetailsChoice();
-    }
-
-    public Account(String name, String address, String email, int age, double balance) {
+    //Constructor:
+    public Account(String name, String address, String previousAddress1, String previousAddress2, String email, int age, double balance) {
         this.name = name;
         this.address = address;
+        this.previousAddress1 = previousAddress1;
+        this.previousAddress2 = previousAddress2;
         this.email = email;
         this.age = age;
         this.balance = balance;
@@ -66,6 +44,64 @@ public class Account {
         this.accNum = rNums;
     }
 
+    private static String askForPreviousCustomerAddress(){
+        //setting up scanner:
+        Scanner addressScanner = new Scanner(System.in);
+        System.out.println("\nHas customer lived at any other addresses in past 3 years? (y/n) ");
+        String addressQAnswer = addressScanner.nextLine();
+        String previousAddressInput = "";
+        if(addressQAnswer.equalsIgnoreCase("y")){
+            System.out.println("\nEnter previous customer address: ");
+            previousAddressInput = addressScanner.nextLine();
+        }
+        return previousAddressInput;
+    }
+
+    public static void inputDetails() {
+        Scanner anotherScan = new Scanner(System.in);
+        System.out.println("\nEnter customer name: ");
+        String nameInput = anotherScan.nextLine();
+        System.out.println("\nEnter customer address: ");
+        String addressInput = anotherScan.nextLine();
+
+        //Checking for previous addresses in past 3 years:
+        String previousAddress1 = askForPreviousCustomerAddress();
+        String previousAddress2 = "";
+        if(!Objects.equals(previousAddress1, ""))
+        {
+            previousAddress2 = askForPreviousCustomerAddress();
+        }
+
+        String emailInput;
+        do {
+            assert false;
+            System.out.println("\nEnter customer email address: ");
+            emailInput = anotherScan.nextLine();
+
+            // Establish input rules
+
+        } while (!emailInput.contains("@"));
+
+        int ageInput = 0;
+        while (ageInput < 16) {
+            Scanner ageScan = new Scanner(System.in);
+            System.out.println("\nEnter customer age: ");
+            try{
+                ageInput = ageScan.nextInt();
+                if(ageInput<16){
+                    System.out.println("\nAge must be over 16");
+                }
+            }catch (Exception e){
+                System.out.println("\nYou must enter a number");
+            }
+        }
+        double balance = 0.00;
+        Account account = new Account(nameInput, addressInput,previousAddress1,previousAddress2, emailInput, ageInput, balance);
+        account.writeDetailsChoice();
+    }
+
+
+
     public void writeDetailsChoice() {
 
             System.out.println("\n*******************************");
@@ -74,27 +110,38 @@ public class Account {
             System.out.println("2. ISA");
             System.out.println("3. Business");
             System.out.println("*******************************");
-            Scanner scan = new Scanner(System.in);
-            int userChoice = scan.nextInt();
+            boolean valid=false;
+            int userChoice=0;
+            while(!valid){
+                Scanner scan = new Scanner(System.in);
+                try{
+                    userChoice = scan.nextInt();
+                    valid=true;
+                }catch (Exception e){
+                    System.out.println("You must enter a number");
+                }
+            }
+
 
 
         String fileChoice;
         if (userChoice == 1) {
-            Current c1 = new Current(name, address, email, age, balance);
+            Current c1 = new Current(name, address, previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "Accounts.txt";
             c1.writeDetails(fileChoice);
             System.out.println("current");}
         else if (userChoice == 2){
-            ISA i1 = new ISA(name, address, email, age, balance);
+            ISA i1 = new ISA(name, address,previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "ISA.txt";
             i1.writeDetails(fileChoice);
             System.out.println("ISA");}
         else if (userChoice == 3){
-            Business b1 = new Business(name, address, email, age, balance);
+            Business b1 = new Business(name, address,previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "business.txt";
             b1.writeDetails(fileChoice);
-            System.out.println("business");}
+            System.out.println("Business");}
         else {
+            System.out.println("Invalid choice");
             writeDetailsChoice();
         }
     }
@@ -111,6 +158,8 @@ public class Account {
                     "\n" + this.age +
                     "\n" + this.balance +
                     "\n" + this.interest +
+                    "\n" + this.previousAddress1 +
+                    "\n" + this.previousAddress2 +
                     "\n" + "----------" + "\n");
 
             fw.close();
@@ -124,28 +173,86 @@ public class Account {
 
 
     public static void transferDetails() {
-        Scanner anotherScan = new Scanner(System.in);
+        String accFrom;
+        String sortFrom;
+        String accTo;
+        String sortTo;
+        float amountToTransfer = 0;
 
 //      Get sender details
-        System.out.println("Input account number to transfer from:");
-        String accFrom = anotherScan.nextLine();
-        System.out.println("Input sort-code to transfer from:");
-        String sortFrom = anotherScan.nextLine();
-
+        sortFrom = sortcodeCheck("From");
+        accFrom = accNumCheck(sortFrom,"From");
 
 //      Get receiver details
-        System.out.println("Input account number to transfer to:");
-        String accTo = anotherScan.nextLine();
-        System.out.println("Input sort-code to transfer to:");
-        String sortTo = anotherScan.nextLine();
+        sortTo = sortcodeCheck("To");
+        accTo = accNumCheck(sortTo,"To");
 
 //      Get amount
+        boolean valid=false;
         System.out.println("Input amount to transfer:");
-        float amountToTransfer = Float.parseFloat(anotherScan.nextLine());
+        while (!valid){
+            try{
+                Scanner amountScan = new Scanner(System.in);
+                amountToTransfer = Float.parseFloat(amountScan.nextLine());
+                valid=true;
+            }catch (Exception e){
+                System.out.println("Amount must be a number:");
+            }
+        }
 
         transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
     }
 
+    public static String accNumCheck(String sortcode, String transType){
+        String accNum="";
+        boolean accFound=false;
+
+        switch (sortcode) {
+//          Current
+            case "24-65-32" -> sortcode="Accounts.txt";
+//          ISA
+            case "24-65-69" -> sortcode="ISA.txt";
+//          Business
+            case "24-65-27" -> sortcode="Business.txt";
+        }
+
+        while(!accFound){
+            System.out.println("Input account number to transfer "  + transType + ":");
+            Scanner anotherScan = new Scanner(System.in);
+            accNum = anotherScan.nextLine();
+
+            File f = new File(sortcode);
+            try {
+                String currentLine;
+                Scanner readFile = new Scanner(f);
+
+                while(readFile.hasNextLine()) {
+                    currentLine = readFile.nextLine();
+                    if (accNum.equals(currentLine)) {
+                        accFound=true;
+                    }
+                }
+                if (!accFound) {
+                    System.out.println("Invalid account number");
+                }
+            } catch (IOException e) {
+                System.out.println("Invalid sort-code");
+            }
+        }
+        return accNum;
+    }
+    public static String sortcodeCheck(String transType){
+        String sortcode="";
+        while(!sortcode.equals("24-65-32")&&!sortcode.equals("24-65-69")&&!sortcode.equals("24-65-27")){
+            Scanner anotherScan = new Scanner(System.in);
+            System.out.println("Input sort-code to transfer " + transType + ":");
+            sortcode = anotherScan.nextLine();
+            if(!sortcode.equals("24-65-32")&&!sortcode.equals("24-65-69")&&!sortcode.equals("24-65-27")){
+                System.out.println("Sort-code invalid");
+            }
+        }
+        return sortcode;
+    }
     public static void transfer(String accFrom, String accTo, String sortFrom, String sortTo, float amountToTransfer, boolean send){
         String accTypeFile;
         String accAction;
@@ -177,9 +284,13 @@ public class Account {
             while(readFile.hasNextLine()){
                 currentLine = readFile.nextLine();
                 fileContents.add(currentLine);
+
+//              If the account number (either sender or receiver) is equal to current line
                 if(accAction.equals(currentLine)){
                     for(int i=0; i<6; i++){
                         currentLine=readFile.nextLine();
+
+//                      when i is equal to the line number of the balance for that account
                         if(i==5){
                             if(!send){
                                 currentLine= String.valueOf(Float.parseFloat(currentLine)-amountToTransfer);
@@ -195,7 +306,6 @@ public class Account {
                 }
             }
 
-
 //          Write contents of list to txt file
             FileWriter fw = new FileWriter(accTypeFile);
             for (String fileContent : fileContents) {
@@ -208,7 +318,7 @@ public class Account {
             }
 
         } catch (IOException e) {
-            System.out.println("Invalid sort-code");
+            System.out.println("Invalid sort-code2");
             transferDetails();
         }
     }

@@ -4,45 +4,90 @@ import java.io.IOException;
 import java.util.*;
 
 public class Staff {
-    String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: "};
+    String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: ", "Previous Address 1:", "Previous Address 2:"};
 
     public Staff() {
     }
 
-    public void viewDetails(){
+    public void viewWhichDetails(){
+        System.out.println("Do you want to:" +
+                "\n1. View all details" +
+                "\n2. Just Balance");
+        Scanner scan = new Scanner(System.in);
+        String userChoice = scan.nextLine();
+        if(userChoice.equals("1")){
+            viewDetails(false);
+        }else if (userChoice.equals("2")) {
+            viewDetails(true);
+        }else{
+            System.out.println("Enter either 1 or 2");
+            viewWhichDetails();
+        }
+    }
+    public void viewDetails(boolean justBalance){
         System.out.println("\nEnter account number: ");
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
         System.out.println("\nEnter sort code: ");
-        String sort_code = scan.nextLine();
+        String sortcode = scan.nextLine();
+        switch (sortcode) {
+//          Current
+            case "24-65-32" -> sortcode="Accounts.txt";
+//          ISA
+            case "24-65-69" -> sortcode="ISA.txt";
+//          Business
+            case "24-65-27" -> sortcode="Business.txt";
+        }
+
+        boolean accFound=false;
 
         try {
-            File f = new File("Accounts.txt");
+            File f = new File(sortcode);
             Scanner readFile = new Scanner(f);
             String line;
 
             while (readFile.hasNextLine()) {
                 line = readFile.nextLine();
                 if(line.equals(userChoice)){
+                    accFound=true;
                     System.out.println("\n");
                     System.out.println(accountTags[0]+line);
-//                  Print all lines from account number (loops until last line for that account)
 
-                    int i=1;
-                    while (!Objects.equals(line, "----------")){
-                        line = readFile.nextLine();
-                        try {
-                            System.out.println(accountTags[i] + line);
-                        } catch(ArrayIndexOutOfBoundsException e){
-                            continue;
+                    if(!justBalance){
+//                      Print all lines from account number (loops until last line for that account)
+                        int i=1;
+                        while (!Objects.equals(line, "----------")){
+                            line = readFile.nextLine();
+                            try {
+                                System.out.println(accountTags[i] + line);
+                            } catch(ArrayIndexOutOfBoundsException e){
+                                continue;
+                            }
+                            i++;
+
                         }
-                        i++;
 
+
+                    }else{
+                        for (int i=0; i<6; i++){
+                            line = readFile.nextLine();
+
+//                          When i is equal to the line number of the balance for that account
+                            if(i==5){
+                                System.out.println(accountTags[i+1] + line);
+                            }
+                        }
                     }
                 }
             }
+
+            if(!accFound){
+                System.out.println("Account not found");
+                viewDetails(justBalance);
+            }
         } catch (IOException e) {
-            System.out.println("Error");
+            System.out.println("Account not found");
+            viewDetails(justBalance);
         }
     }
 
@@ -51,7 +96,6 @@ public class Staff {
 
 //      Split up date string to separate month
         String[] dateSplit = date.split(" ");
-        String testing = "lol";
 
         try {
             File f = new File("Date.txt");
@@ -80,51 +124,58 @@ public class Staff {
     public void addInterest(boolean businessCharge){
         List<String> fileContents = new ArrayList<>();
         String fileType;
+        String sortcode;
+        String balance;
+        String interest = "";
+        String line1;
+
         if(businessCharge){
             fileType = "Business.txt";
-        }else{fileType = "ISA.txt";}
+            sortcode= "24-65-27";
+        }else{
+            fileType = "ISA.txt";
+            sortcode= "24-65-69";
+        }
 
         try {
             File f = new File(fileType);
             Scanner readFile = new Scanner(f);
 
-//          3 variables to backtrack from end of user up to Bal
-            String line1="";
-            String line2="";
-
-
             while (readFile.hasNextLine()) {
-//              Backtracking
-                String line3 = line2;
-                line2 = line1;
                 line1 = readFile.nextLine();
 
-//              Add line3 to list if not at end of user and backtracks aren't the same as line1 was at the end of the user, to avoid duplicate additions
-                if(!line3.equals("")&&!line1.equals("----------")&&!line2.equals("----------")&&!line3.equals("----------")){
-                    fileContents.add(line3);
-                }
+                if(line1.equals(sortcode)){
+                    for(int i=0; i<7; i++){
+//                      Backtracking since balance comes first in the txt file
+                        balance = interest;
+                        interest = line1;
+                        if(i==5){
+                        }
 
-                if(line1.equals("----------")){
+                        else if(i==6){
+//                          If business charge run, take the charge away from bal. else, it's an interest run.
+                            if(businessCharge){
+                                balance=String.valueOf(Float.parseFloat(balance)-50f);
+                                fileContents.add(balance);
+                                fileContents.add(interest);
 
-//                  If business charge run, take the charge away from bal. else, it's an interest run.
-                    if (businessCharge){
-                        line3 = String.valueOf(Float.parseFloat(line3) - 50f);
-                        System.out.println("Business run: " + line3 + "\n");
+                            }else{
+//                              Add interest to bal line
+                                balance = String.valueOf((Float.parseFloat(balance) * Float.parseFloat(interest)) + Float.parseFloat(balance));
+                                fileContents.add(balance);
 
-                    }else{
-
-//                      Add interest to bal line
-                        line3 = String.valueOf((Float.parseFloat(line3) * Float.parseFloat(line2)) + Float.parseFloat(line3));
-
-//                      Scale interest
-                        line2 = String.valueOf((Float.parseFloat(line2) * Float.parseFloat(line2)) + Float.parseFloat(line2));
-                        System.out.println("Interest run: " + line3 + "\n");
+//                              Scale interest
+                                interest = String.valueOf((Float.parseFloat(interest) * Float.parseFloat(interest)) + Float.parseFloat(interest));
+                                fileContents.add(String.valueOf(interest));
+                            }
+                        }
+                        else{
+                            fileContents.add(line1);
+                        }
+                        line1 = readFile.nextLine();
                     }
-
-
-//                  Add remaining lines to list including new bal
-                    fileContents.add(line3);
-                    fileContents.add(line2);
+                    fileContents.add(line1);
+                }else{
                     fileContents.add(line1);
                 }
             }
