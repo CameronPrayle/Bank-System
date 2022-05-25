@@ -21,7 +21,8 @@ public class Main {
                 case "1" -> Account.inputDetails();
                 case "2" -> s1.viewWhichDetails();
                 case "3" -> Account.transferDetails();
-                case "4" -> exit = true;
+                case "4" -> Business.chequeBook();
+                case "5" -> exit = true;
                 default -> {
                     System.out.println("Invalid option");
                 }

@@ -6,10 +6,11 @@ public class Menu {
         System.out.println("1. Input User");
         System.out.println("2. View User Details");
         System.out.println("3. Transfer Funds");
-        System.out.println("4. Exit");
+        System.out.println("4. Request chequebook (Business account only)");
+        System.out.println("5. Exit");
         System.out.println("*******************************");
 
-//          Get user choice
+//      Get user choice
         Scanner scan = new Scanner(System.in);
         return scan.nextLine();
     }
