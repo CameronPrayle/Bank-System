@@ -161,7 +161,16 @@ public class Account {
             PrintBasicDetails(i1);
         }
         else if (userChoice == 3){
-            Business b1 = new Business(name, address,previousAddress1, previousAddress2, email, age, balance);
+            String company="";
+            while (company.equals("")){
+                Scanner businessScan = new Scanner(System.in);
+                System.out.println("Enter your company name");
+                company = businessScan.nextLine();
+                if (company.equals("")){
+                    System.out.println("you must enter a valid company name");
+                }
+            }
+            Business b1 = new Business(name, address, previousAddress1, previousAddress2, email, age, balance, company);
             fileChoice = "business.txt";
             b1.writeDetails(fileChoice);
             System.out.println("New Business Account Created:");
