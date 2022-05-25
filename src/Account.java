@@ -143,23 +143,30 @@ public class Account {
             }
 
 
-
+        //Creating new accounts of type Current, ISA, and Business depending on user input.
+        //Writing details of new account in relative .txt file and displaying basic info on screen:
         String fileChoice;
         if (userChoice == 1) {
             Current c1 = new Current(name, address, previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "Accounts.txt";
             c1.writeDetails(fileChoice);
-            System.out.println("current");}
+            System.out.println("New Current Account Created:");
+            PrintBasicDetails(c1);
+        }
         else if (userChoice == 2){
             ISA i1 = new ISA(name, address,previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "ISA.txt";
             i1.writeDetails(fileChoice);
-            System.out.println("ISA");}
+            System.out.println("New ISA Account Created:");
+            PrintBasicDetails(i1);
+        }
         else if (userChoice == 3){
             Business b1 = new Business(name, address,previousAddress1, previousAddress2, email, age, balance);
             fileChoice = "business.txt";
             b1.writeDetails(fileChoice);
-            System.out.println("Business");}
+            System.out.println("New Business Account Created:");
+            PrintBasicDetails(b1);
+        }
         else {
             System.out.println("Invalid choice");
             writeDetailsChoice();
@@ -363,6 +370,14 @@ public class Account {
         }
 
         return accountNumExists;
+    }
+
+    //Function that displays basic account details in console:
+    //(takes in an Account)
+    void PrintBasicDetails(Account account){
+        System.out.println(account.name);
+        System.out.println("Account No.: "+ account.accNum);
+        System.out.println("Sort Code: "+ account.sortCode);
     }
 }
 
