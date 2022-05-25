@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Staff {
-    String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: ", "Previous Address 1: ", "Previous Address 2: ", "Company Name: "};
+    String[] accountTags ={"Account Number: ", "Sort Code: ", "Name: ", "Address: ", "Email: ", "Age: ", "Balance: ", "Interest: ", "Previous Address 1: ", "Previous Address 2: ", "Company Name: ", "ISA Cap Remaining: "};
 
     public Staff() {
     }
@@ -60,7 +60,12 @@ public class Staff {
                             line = readFile.nextLine();
                             try {
                                 if(!line.equals("----------")){
-                                    System.out.println(accountTags[i] + line);
+                                    if(sortcode.equals("ISA.txt") && accountTags[i].equals("Company Name: ")){
+                                        System.out.println(accountTags[i+1] + line);
+                                    }else{
+                                        System.out.println(accountTags[i] + line);
+                                    }
+
                                 }
                             } catch(ArrayIndexOutOfBoundsException e){
                                 continue;
@@ -105,15 +110,22 @@ public class Staff {
 
 //          if the current month doesn't equal the month in the txt file update the date and add the monthly interest
             if(!dateSplit[1].equals(readFile.nextLine())){
-                FileWriter fw = new FileWriter("Date.txt");
-                fw.write(dateSplit[1]);
-                fw.close();
                 addInterest(false);
 
 //              if the current month is April then add business charge using addInterest()
                 if(dateSplit[1].equals("Apr")){
                     addInterest(true);
                 }
+
+                if(!dateSplit[5].equals(readFile.nextLine())){
+                    resetISACap();
+                }
+
+                FileWriter fw = new FileWriter("Date.txt");
+                fw.write(dateSplit[1]);
+                fw.write("\n");
+                fw.write(dateSplit[5]);
+                fw.close();
             }
 
 
@@ -123,6 +135,42 @@ public class Staff {
         }
     }
 
+    public void resetISACap(){
+        List<String> fileContents = new ArrayList<>();
+        try {
+            File f = new File("ISA.txt");
+            Scanner readFile = new Scanner(f);
+            String line;
+
+            while (readFile.hasNextLine()){
+                line = readFile.nextLine();
+                fileContents.add(line);
+                if(line.equals("24-65-69")){
+                    for (int i=0; i<9; i++){
+                        line = readFile.nextLine();
+
+//                      When i is equal to the line number of the ISA cap remaining for that account
+                        if(i==8){
+                            line = "20000";
+                            fileContents.add(line);
+                        }else{
+                            fileContents.add(line);
+                        }
+                    }
+                }
+            }
+
+//          Write contents of list to txt file
+            FileWriter fw = new FileWriter("ISA.txt");
+            for (String fileContent : fileContents) {
+                fw.write(fileContent + "\n");
+            }
+            fw.close();
+
+        } catch (IOException e) {
+            System.out.println("Account not found");
+        }
+    }
     public void addInterest(boolean businessCharge){
         List<String> fileContents = new ArrayList<>();
         String fileType;

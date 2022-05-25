@@ -115,11 +115,27 @@ public class Account {
                 System.out.println("\nYou must enter a number");
             }
         }
-        double balance = 0.00;
+        double balance = getNewBalance();
         Account account = new Account(nameInput, addressInput,previousAddress1,previousAddress2, emailInput, ageInput, balance);
         account.writeDetailsChoice();
     }
 
+
+    public static Double getNewBalance(){
+        double newBalance = 0.00;
+        boolean valid2=false;
+        while (!valid2) {
+            Scanner balScan = new Scanner(System.in);
+            System.out.println("\nEnter a balance: ");
+            try{
+                newBalance = balScan.nextDouble();
+                valid2=true;
+            }catch (Exception e){
+                System.out.println("\nYou must enter a number");
+            }
+        }
+        return newBalance;
+    }
 
 
     public void writeDetailsChoice() {
@@ -154,7 +170,20 @@ public class Account {
             PrintBasicDetails(c1);
         }
         else if (userChoice == 2){
-            ISA i1 = new ISA(name, address,previousAddress1, previousAddress2, email, age, balance);
+            double newBalance;
+
+//          Checking for cash cap on ISA's
+            if(balance>20000) {
+                newBalance=20001;
+                while(newBalance>20000){
+                    System.out.println("ISA accounts have a cap of £20,000");
+                    newBalance=getNewBalance();
+                }
+            }else{
+                newBalance=balance;
+            }
+
+            ISA i1 = new ISA(name, address,previousAddress1, previousAddress2, email, age, newBalance);
             fileChoice = "ISA.txt";
             i1.writeDetails(fileChoice);
             System.out.println("New ISA Account Created:");
