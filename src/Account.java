@@ -160,9 +160,9 @@ public class Account {
 //          Get company name
             String company="";
             while (company.equals("")){
-                Scanner buisnessScan = new Scanner(System.in);
+                Scanner businessScan = new Scanner(System.in);
                 System.out.println("Enter your company name");
-                company = buisnessScan.nextLine();
+                company = businessScan.nextLine();
                 if (company.equals("")){
                     System.out.println("you must enter a valid company name");
                 }
