@@ -32,10 +32,10 @@ public class Account {
     }
 
     //      Generate random account number:
-    String GenerateRandomAccountNumber(){
+    public String GenerateRandomAccountNumber(){
 
         Random rand = new Random();
-        String rNums = "";
+        StringBuilder rNums = new StringBuilder();
         for (int i=0; i<8;i++){
             String rNum = String.valueOf(rand.nextInt(9));
 
@@ -45,9 +45,9 @@ public class Account {
                     rNum = String.valueOf(rand.nextInt(9));
                 }
             }
-            rNums = rNums + rNum;
+            rNums.append(rNum);
         }
-        return rNums;
+        return rNums.toString();
     }
 
     private static String askForPreviousCustomerAddress(){
@@ -151,7 +151,6 @@ public class Account {
         Account account = new Account(nameInput, addressInput,previousAddress1,previousAddress2, emailInput, ageInput, balance);
         account.writeDetailsChoice();
     }
-
 
     public static Double getNewBalance(){
         double newBalance = 0.00;
@@ -390,8 +389,14 @@ public class Account {
 //                      when i is equal to the line number of the balance for that account
                         if(i==5){
                             if(!send){
-                                currentLine= String.valueOf(Float.parseFloat(currentLine)-amountToTransfer);
-                                fileContents.add(currentLine);
+                                float balance = Float.parseFloat(currentLine);
+                                if (balance >= amountToTransfer) {
+                                    currentLine = String.valueOf(balance - amountToTransfer);
+                                    fileContents.add(currentLine);
+                                } else {
+                                    System.out.println("\nInsufficient funds!");
+                                    transferDetails();
+                                }
                             }else{
                                 currentLine= String.valueOf(Float.parseFloat(currentLine)+amountToTransfer);
                                 fileContents.add(currentLine);
