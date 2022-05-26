@@ -26,7 +26,7 @@ Harry Hill
 12 Friendly Lane
 Hazza91@yahoo.co.uk
 26
--1.0
+2.0
 0.0
 4 Bobby Lane
 34 Aymeric Road
@@ -38,7 +38,6 @@ Hazza91@yahoo.co.uk
 1@2
 17
 0.0
-0.0
 
 
 ----------
@@ -48,7 +47,7 @@ David Lloyd
 4 Church Road
 papalloyd@hotmail.com
 20
-0.0
+1.0
 0.0
 
 
@@ -70,7 +69,7 @@ Very Rich Guy
 45 Some Big Road
 IAMLOADED@hotmail.biz
 66
-2.0
+1.0
 0.0
 23 Another Big Road
 1 Tiny Road

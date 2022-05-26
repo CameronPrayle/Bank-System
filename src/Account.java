@@ -297,6 +297,7 @@ public class Account {
         }
 
         transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
+        System.out.println("Transfer successful!");
     }
 
     public static String accNumCheck(String sortcode, String transType){
@@ -395,7 +396,7 @@ public class Account {
                                     fileContents.add(currentLine);
                                 } else {
                                     System.out.println("\nInsufficient funds!");
-                                    transferDetails();
+                                    Menu.main();
                                 }
                             }else{
                                 currentLine= String.valueOf(Float.parseFloat(currentLine)+amountToTransfer);
@@ -423,6 +424,7 @@ public class Account {
             System.out.println("Invalid sort-code2");
             transferDetails();
         }
+
     }
 
     //Function to check if account number already exists:
