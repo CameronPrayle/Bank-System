@@ -324,7 +324,7 @@ public class Account {
 
                 while(readFile.hasNextLine()) {
                     currentLine = readFile.nextLine();
-                    if (accNum.equals(currentLine)) {
+                    if (accNum.equals(currentLine) && !currentLine.contains("-")) {
                         accFound=true;
                     }
                 }
