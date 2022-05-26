@@ -107,7 +107,7 @@ public class Account {
             postCodeInput = anotherScan.nextLine();
         } while (postCodeInput.length() != 6);
 
-        return houseNumberInput + streetNameInput + townInput + postCodeInput;
+        return houseNumberInput +", "+ streetNameInput+ ", " + townInput + ", " + postCodeInput;
     }
 
     public static void existingCustomerCheck(String emailInput, String fileName) throws FileNotFoundException {
