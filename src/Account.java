@@ -51,14 +51,14 @@ public class Account {
     }
 
     private static String askForPreviousCustomerAddress(){
+        //This code needs to loop until the input is either y or n
         //setting up scanner:
         Scanner addressScanner = new Scanner(System.in);
         System.out.println("\nHas customer lived at any other addresses in past 3 years? (y/n) ");
         String addressQAnswer = addressScanner.nextLine();
         String previousAddressInput = "";
         if(addressQAnswer.equalsIgnoreCase("y")){
-            System.out.println("\nEnter previous customer address: ");
-            previousAddressInput = addressScanner.nextLine();
+            previousAddressInput = inputAddress();
         }
         return previousAddressInput;
     }
@@ -68,21 +68,54 @@ public class Account {
         for (char c : chars) {
             if(!Character.isLetter(c)) {
                 if (c !=' '){
-                    System.out.println("Names can only consist of letters");
+                    //System.out.println("Names can only consist of letters");
                     return false;}
             }
         }
         return true;
     }
+
+    public static String inputAddress(){
+        Scanner anotherScan = new Scanner(System.in);
+
+        // Currently, the user can input alphanumeric house number that must contain at least one number.
+        // This can be changed in future to strictly only allow numbers.
+        String houseNumberInput;
+        do {
+            System.out.println("\nEnter customer house number: ");
+            houseNumberInput = anotherScan.nextLine();
+        } while (isAlpha(houseNumberInput));
+
+        String streetNameInput;
+        do {
+            System.out.println("\nEnter customer street name: ");
+            streetNameInput = anotherScan.nextLine();
+        } while (!isAlpha(streetNameInput));
+
+        String townInput;
+        do {
+            System.out.println("\nEnter customer town: ");
+            townInput = anotherScan.nextLine();
+        } while (!isAlpha(townInput));
+
+        // In future add check to verify the validity of the post code.
+        String postCodeInput;
+        do {
+            System.out.println("\nEnter customer post code: ");
+            postCodeInput = anotherScan.nextLine();
+        } while (postCodeInput.length() != 6);
+
+        return houseNumberInput + streetNameInput + townInput + postCodeInput;
+    }
     public static void inputDetails() {
         Scanner anotherScan = new Scanner(System.in);
         String nameInput;
         do{
-        System.out.println("\nEnter customer name: ");
-        nameInput = anotherScan.nextLine();
+            System.out.println("\nEnter customer name: ");
+            nameInput = anotherScan.nextLine();
         } while (!isAlpha(nameInput));
-        System.out.println("\nEnter customer address: ");
-        String addressInput = anotherScan.nextLine();
+
+        String addressInput = inputAddress();
 
         //Checking for previous addresses in past 3 years:
         String previousAddress1 = askForPreviousCustomerAddress();
@@ -92,15 +125,14 @@ public class Account {
             previousAddress2 = askForPreviousCustomerAddress();
         }
 
+        // I feel like this dowhile loop should force users to input both @ and . before continuing.
+        // For some reason the loop breaks with either @ or . being entered.
         String emailInput;
         do {
             assert false;
             System.out.println("\nEnter customer email address: ");
             emailInput = anotherScan.nextLine();
-
-            // Establish input rules
-
-        } while (!emailInput.contains("@"));
+        } while (!emailInput.contains("@") && !emailInput.contains("."));
 
         int ageInput = 0;
         while (ageInput < 16) {
@@ -112,7 +144,7 @@ public class Account {
                     System.out.println("\nAge must be over 16");
                 }
             }catch (Exception e){
-                System.out.println("\nYou must enter a number");
+                System.out.println("\nAge must be a number");
             }
         }
         double balance = getNewBalance();
