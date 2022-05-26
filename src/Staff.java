@@ -62,8 +62,9 @@ public class Staff {
                             try {
                                 if(!line.equals("----------")){
                                     if(sortcode.equals("ISA.txt") && accountTags[i].equals("Company Name: ")){
+
                                         System.out.println(accountTags[i+1] + line);
-                                    }else{
+                                    }else {
                                         System.out.println(accountTags[i] + line);
                                     }
 

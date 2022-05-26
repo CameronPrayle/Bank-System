@@ -14,6 +14,7 @@ public class Account {
     String previousAddress1;
     String previousAddress2;
     String email;
+    String type;
     int age;
     double balance;
     float interest = 0;
@@ -276,6 +277,7 @@ public class Account {
                     "\n" + this.interest +
                     "\n" + this.previousAddress1 +
                     "\n" + this.previousAddress2 +
+                    "\n" + this.type +
                     "\n" + "----------" + "\n");
 
             fw.close();
