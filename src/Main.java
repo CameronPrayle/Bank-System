@@ -1,11 +1,12 @@
+import java.io.FileNotFoundException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         Staff s1 = new Staff();
         s1.checkDate();
         /*
-        //Creating StaffCredentialsChecker class and running login:
+        Creating StaffCredentialsChecker class and running login:
         StaffCredentialsChecker staffCredentialsChecker = new StaffCredentialsChecker();
         staffCredentialsChecker.RunLoginSystem();
         */
@@ -23,9 +24,7 @@ public class Main {
                 case "3" -> Account.transferDetails();
                 case "4" -> Business.chequeBook();
                 case "5" -> exit = true;
-                default -> {
-                    System.out.println("Invalid option");
-                }
+                default -> System.out.println("Invalid option");
             }
         }
     }

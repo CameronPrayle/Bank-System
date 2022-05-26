@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -107,7 +108,21 @@ public class Account {
 
         return houseNumberInput + streetNameInput + townInput + postCodeInput;
     }
-    public static void inputDetails() {
+
+    public static void existingCustomerCheck(String emailInput, String fileName) throws FileNotFoundException {
+        String currentLine;
+        File f = new File(fileName);
+        Scanner readBusiness = new Scanner(f);
+        while(readBusiness.hasNextLine()) {
+            currentLine = readBusiness.nextLine();
+            if (emailInput.equals(currentLine)) {
+                System.out.println("This email address is already associated with an account!");
+                Menu.main();
+            }
+        }
+    }
+
+    public static void inputDetails() throws FileNotFoundException {
         Scanner anotherScan = new Scanner(System.in);
         String nameInput;
         do{
@@ -133,6 +148,11 @@ public class Account {
             System.out.println("\nEnter customer email address: ");
             emailInput = anotherScan.nextLine();
         } while (!emailInput.contains("@") && !emailInput.contains("."));
+
+        // Checks each document to see if the email address matches up with an existing account.
+        existingCustomerCheck(emailInput,"Accounts.txt");
+        existingCustomerCheck(emailInput,"Business.txt");
+        existingCustomerCheck(emailInput,"ISA.txt");
 
         int ageInput = 0;
         while (ageInput < 16) {
