@@ -10,9 +10,10 @@ public class Staff {
     }
 
     public void viewWhichDetails(){
-        System.out.println("Do you want to:" +
-                "\n1. View all details" +
-                "\n2. Just Balance");
+        System.out.println("""
+                Do you want to:
+                1. View all details
+                2. Just Balance""");
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
         if(userChoice.equals("1")){
@@ -216,7 +217,7 @@ public class Staff {
 
 //                              Scale interest
                                 interest = String.valueOf((Float.parseFloat(interest) * Float.parseFloat(interest)) + Float.parseFloat(interest));
-                                fileContents.add(String.valueOf(interest));
+                                fileContents.add(interest);
                             }
                         }
                         else{
