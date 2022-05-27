@@ -9,23 +9,38 @@ public class Staff {
     public Staff() {
     }
 
+    public void displayAccountType(){
+        String sortcode = Account.sortcodeCheck("display");
+        switch (sortcode) {
+            case "24-65-32" -> sortcode="Current Account";
+            case "24-65-69" -> sortcode="ISA Account";
+            case "24-65-27" -> sortcode="Business Account";
+        }
+        System.out.println("Account type: "+sortcode);
+    }
     public void viewWhichDetails(){
         System.out.println("""
                 Do you want to:
                 1. View all details
-                2. Just Balance""");
+                2. Just Balance
+                3. Just Account type""");
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
         if(userChoice.equals("1")){
             viewDetails(false);
         }else if (userChoice.equals("2")) {
             viewDetails(true);
-        }else{
-            System.out.println("Enter either 1 or 2");
+        }else if(userChoice.equals("3")){
+            displayAccountType();
+        }
+        else{
+            System.out.println("Enter either 1, 2 or 3");
             viewWhichDetails();
         }
     }
     public void viewDetails(boolean justBalance){
+
+//      Get account info
         System.out.println("\nEnter account number: ");
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
@@ -42,6 +57,7 @@ public class Staff {
 
         boolean accFound=false;
 
+//      Displaying
         try {
             File f = new File(sortcode);
             Scanner readFile = new Scanner(f);
@@ -76,7 +92,7 @@ public class Staff {
 
                         }
 
-
+//                  Displaying just the balance
                     }else{
                         for (int i=0; i<6; i++){
                             line = readFile.nextLine();
@@ -90,6 +106,7 @@ public class Staff {
                 }
             }
 
+//          Account not found messages
             if(!accFound){
                 System.out.println("Account not found");
                 viewDetails(justBalance);

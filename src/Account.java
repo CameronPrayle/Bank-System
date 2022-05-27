@@ -333,6 +333,7 @@ public class Account {
 
     }
 
+//   Returns valid account number
     public static String accNumCheck(String sortcode, String transType){
         String accNum="";
         boolean accFound=false;
@@ -371,11 +372,23 @@ public class Account {
         }
         return accNum;
     }
+
+//  Returns valid sort code
     public static String sortcodeCheck(String transType){
         String sortcode="";
+
+//      Customise message for different uses
+        String message;
+        if(transType.equals("display")){
+            message = "get account type";
+        }else{
+            message = "transfer";
+        }
+
+//      Get valid sort code
         while(!sortcode.equals("24-65-32")&&!sortcode.equals("24-65-69")&&!sortcode.equals("24-65-27")){
             Scanner anotherScan = new Scanner(System.in);
-            System.out.println("Input sort-code to transfer " + transType + ":");
+            System.out.println("Input sort-code to "+ message + " " + transType + ":");
             sortcode = anotherScan.nextLine();
             if(!sortcode.equals("24-65-32")&&!sortcode.equals("24-65-69")&&!sortcode.equals("24-65-27")){
                 System.out.println("Sort-code invalid");
@@ -443,7 +456,6 @@ public class Account {
                                 }
                             }
                         } else {
-                            System.out.println(newCap[0]);
                             if(newCap[0].equals(currentLine)){
                                 currentLine=newCap[1];
                             }

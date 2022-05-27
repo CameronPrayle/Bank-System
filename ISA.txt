@@ -40,11 +40,11 @@ Bailey Mason
 66 Olympia Way
 BimbleBomble@Binny.com
 20
-10133.043
+15133.043
 0.020816159
 
 
-10000.0
+5000.0
 ----------
 81233607
 24-65-69
