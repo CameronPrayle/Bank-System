@@ -69,7 +69,7 @@ Very Rich Guy
 45 Some Big Road
 IAMLOADED@hotmail.biz
 66
-1.0
+0.049999952
 0.0
 23 Another Big Road
 1 Tiny Road
@@ -80,7 +80,7 @@ Emily astname
 43 Epic Lane
 IamSoCool@gmail.com
 33
-3000000.54
+3000001.5
 0.0
 
 

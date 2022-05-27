@@ -318,8 +318,19 @@ public class Account {
             }
         }
 
-        transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
-        System.out.println("Transfer successful!");
+//      Check remaining ISA cap
+        if(sortTo.equals("24-65-69")){
+            boolean capCheck = ISA.isAmountTooBigForCap(accTo, amountToTransfer);
+            if(capCheck==true){
+                System.out.println("The amount you want to transfer exceeds the ISA limit for that account");
+            }else{
+                transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
+            }
+        }else{
+            transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
+        }
+
+
     }
 
     public static String accNumCheck(String sortcode, String transType){
@@ -375,6 +386,8 @@ public class Account {
     public static void transfer(String accFrom, String accTo, String sortFrom, String sortTo, float amountToTransfer, boolean send){
         String accTypeFile;
         String accAction;
+        boolean insufficientFunds=false;
+        String[] newCap = {"old", "new"}; //Checking old ISA cap with new ISA cap post transfer
 
         if(!send){
             accTypeFile=sortFrom;
@@ -406,25 +419,34 @@ public class Account {
 
 //              If the account number (either sender or receiver) is equal to current line
                 if(accAction.equals(currentLine)){
-                    for(int i=0; i<6; i++){
-                        currentLine=readFile.nextLine();
+                    for(int i=0; i<10; i++) {
+                        currentLine = readFile.nextLine();
 
 //                      when i is equal to the line number of the balance for that account
-                        if(i==5){
-                            if(!send){
+                        if (i == 5) {
+                            if (!send) {
                                 float balance = Float.parseFloat(currentLine);
                                 if (balance >= amountToTransfer) {
                                     currentLine = String.valueOf(balance - amountToTransfer);
                                     fileContents.add(currentLine);
                                 } else {
                                     System.out.println("\nInsufficient funds!");
-                                    Menu.main();
+                                    insufficientFunds = true;
+                                    fileContents.add(currentLine);
                                 }
-                            }else{
-                                currentLine= String.valueOf(Float.parseFloat(currentLine)+amountToTransfer);
+                            } else {
+                                currentLine = String.valueOf(Float.parseFloat(currentLine) + amountToTransfer);
+                                System.out.println("Transfer successful!");
                                 fileContents.add(currentLine);
+                                if(sortTo.equals("24-65-69")){
+                                    newCap = ISA.getNewCap(accAction, amountToTransfer);
+                                }
                             }
-                        }else{
+                        } else {
+                            System.out.println(newCap[0]);
+                            if(newCap[0].equals(currentLine)){
+                                currentLine=newCap[1];
+                            }
                             fileContents.add(currentLine);
                         }
                     }
@@ -438,9 +460,12 @@ public class Account {
             }
             fw.close();
 
-            if (!send) {
-                transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, true);
+            if(!insufficientFunds){
+                if (!send) {
+                    transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, true);
+                }
             }
+
 
         } catch (IOException e) {
             System.out.println("Invalid sort-code2");
