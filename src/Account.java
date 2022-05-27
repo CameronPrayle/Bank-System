@@ -55,12 +55,18 @@ public class Account {
     private static String askForPreviousCustomerAddress(){
         //This code needs to loop until the input is either y or n
         //setting up scanner:
-        Scanner addressScanner = new Scanner(System.in);
-        System.out.println("\nHas customer lived at any other addresses in past 3 years? (y/n) ");
-        String addressQAnswer = addressScanner.nextLine();
-        String previousAddressInput = "";
-        if(addressQAnswer.equalsIgnoreCase("y")){
-            previousAddressInput = inputAddress();
+        String addressQAnswer="";
+        String previousAddressInput="";
+        while(!addressQAnswer.equals("y") && !addressQAnswer.equals("n")){
+            Scanner addressScanner = new Scanner(System.in);
+            System.out.println("\nHas customer lived at any other addresses in past 3 years? (y/n) ");
+            addressQAnswer = addressScanner.nextLine();
+            previousAddressInput = "";
+            if(addressQAnswer.equalsIgnoreCase("y")){
+                previousAddressInput = inputAddress();
+            } else if (!addressQAnswer.equals("n")) {
+                System.out.println("You must enter either y or n");
+            }
         }
         return previousAddressInput;
     }
