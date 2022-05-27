@@ -329,10 +329,10 @@ public class Account {
             if(capCheck){
                 System.out.println("The amount you want to transfer exceeds the ISA limit for that account");
             }else{
-                transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
+                transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false,false,false);
             }
         }else{
-            transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
+            transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false,false, false);
         }
 
 
@@ -351,7 +351,9 @@ public class Account {
 //          Business
             case "24-65-27" -> sortcode="Business.txt";
         }
-
+        if (transType.equals("deposit")){
+            transType = "deposit to";
+        }
         while(!accFound){
             System.out.println("Input account number to transfer "  + transType + ":");
             Scanner anotherScan = new Scanner(System.in);
@@ -384,11 +386,11 @@ public class Account {
         String sortcode="";
 
 //      Customise message for different uses
-        String message;
+        String message = "";
         if(transType.equals("display")){
             message = "get account type";
         } else if (transType.equals("deposit")){
-            message = "deposit";
+            transType = "deposit to";
         }
         else{
             message = "transfer";
@@ -405,7 +407,7 @@ public class Account {
         }
         return sortcode;
     }
-    public static void transfer(String accFrom, String accTo, String sortFrom, String sortTo, float amountToTransfer, boolean send){
+    public static void transfer(String accFrom, String accTo, String sortFrom, String sortTo, float amountToTransfer, boolean send, boolean deposit, boolean withdraw){
         String accTypeFile;
         String accAction;
         boolean insufficientFunds=false;
@@ -451,6 +453,9 @@ public class Account {
                                 if (balance >= amountToTransfer) {
                                     currentLine = String.valueOf(balance - amountToTransfer);
                                     fileContents.add(currentLine);
+                                    if(withdraw){
+                                        System.out.println("Withdraw successful");
+                                    }
                                 } else {
                                     System.out.println("\nInsufficient funds!");
                                     insufficientFunds = true;
@@ -458,7 +463,12 @@ public class Account {
                                 }
                             } else {
                                 currentLine = String.valueOf(Float.parseFloat(currentLine) + amountToTransfer);
-                                System.out.println("Transfer successful!");
+                                if(!deposit){
+                                    System.out.println("Transfer successful!");
+                                } else if (deposit) {
+                                    System.out.println("Deposit successful");
+                                }
+
                                 fileContents.add(currentLine);
                                 if(sortTo.equals("24-65-69")){
                                     newCap = ISA.getNewCap(accAction, amountToTransfer);
@@ -483,7 +493,9 @@ public class Account {
 
             if(!insufficientFunds){
                 if (!send) {
-                    transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, true);
+                    if(!withdraw){
+                        transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, true,false,false);
+                    }
                 }
             }
 
@@ -538,12 +550,12 @@ public class Account {
         float amountToTransfer = 0;
 
 //      Get receiver details
-        sortTo = sortcodeCheck("To");
-        accTo = accNumCheck(sortTo,"To");
+        sortTo = sortcodeCheck("deposit");
+        accTo = accNumCheck(sortTo,"deposit");
 
 //      Get amount
         boolean valid=false;
-        System.out.println("Input amount to transfer:");
+        System.out.println("Input amount to deposit:");
         while (!valid){
             try{
                 Scanner amountScan = new Scanner(System.in);
@@ -557,15 +569,40 @@ public class Account {
 //      Check remaining ISA cap
         if(sortTo.equals("24-65-69")){
             boolean capCheck = ISA.isAmountTooBigForCap(accTo, amountToTransfer);
-            if(capCheck==true){
+            if(capCheck){
                 System.out.println("The amount you want to transfer exceeds the ISA limit for that account");
             }else{
-                transfer(null, accTo, null, sortTo, amountToTransfer, true);
+                transfer(null, accTo, null, sortTo, amountToTransfer, true,true,false);
             }
         }else{
-            transfer(null, accTo, null, sortTo, amountToTransfer, true);
+            transfer(null, accTo, null, sortTo, amountToTransfer, true,true,false);
         }
     }
+
+    public static void withdraw(){
+        String accFrom;
+        String sortFrom;
+        float amountToTransfer = 0;
+
+//      Get receiver details
+        sortFrom = sortcodeCheck("withdraw");
+        accFrom = accNumCheck(sortFrom,"withdraw");
+
+//      Get amount
+        boolean valid=false;
+        System.out.println("Input amount to withdraw:");
+        while (!valid){
+            try{
+                Scanner amountScan = new Scanner(System.in);
+                amountToTransfer = Float.parseFloat(amountScan.nextLine());
+                valid=true;
+            }catch (Exception e){
+                System.out.println("Amount must be a number:");
+            }
+        }
+
+        transfer(accFrom, accFrom, sortFrom, null, amountToTransfer, false,false,true);
+        }
 
     
 
