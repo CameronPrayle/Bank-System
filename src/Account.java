@@ -105,7 +105,7 @@ public class Account {
         do {
             System.out.println("\nEnter customer post code: ");
             postCodeInput = anotherScan.nextLine();
-        } while (postCodeInput.length() != 6);
+        } while (postCodeInput.length() < 5 || postCodeInput.length()>8);
 
         return houseNumberInput +", "+ streetNameInput+ ", " + townInput + ", " + postCodeInput;
     }
@@ -147,6 +147,7 @@ public class Account {
         do {
             assert false;
             System.out.println("\nEnter customer email address: ");
+            System.out.println("(Must be in the example@example.com format)");
             emailInput = anotherScan.nextLine();
         } while (!emailInput.contains("@") && !emailInput.contains("."));
 
@@ -512,6 +513,12 @@ public class Account {
     //(takes in an Account)
     void PrintBasicDetails(Account account){
         System.out.println(account.name);
+        System.out.println("Account No.: "+ account.accNum);
+        System.out.println("Sort Code: "+ account.sortCode);
+    }
+    void PrintBasicDetails(Business account){
+        System.out.println(account.name);
+        System.out.println(account.companyName);
         System.out.println("Account No.: "+ account.accNum);
         System.out.println("Sort Code: "+ account.sortCode);
     }
