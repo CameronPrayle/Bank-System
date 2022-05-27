@@ -5,11 +5,11 @@ public class Main {
 
         Staff s1 = new Staff();
         s1.checkDate();
-        /*
-        Creating StaffCredentialsChecker class and running login:
+
+        //Creating StaffCredentialsChecker class and running login:
         StaffCredentialsChecker staffCredentialsChecker = new StaffCredentialsChecker();
         staffCredentialsChecker.RunLoginSystem();
-        */
+
 
 
 

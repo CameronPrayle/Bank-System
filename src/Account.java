@@ -71,12 +71,12 @@ public class Account {
         return previousAddressInput;
     }
     public static boolean isAlpha(String name) {
+        // Checks if the string contains numbers.
         char[] chars = name.toCharArray();
 
         for (char c : chars) {
             if(!Character.isLetter(c)) {
                 if (c !=' '){
-                    //System.out.println("Names can only consist of letters");
                     return false;}
             }
         }
@@ -466,7 +466,7 @@ public class Account {
                                 if(!deposit){
                                     System.out.println("Transfer successful!");
                                     LogTransferDetails(accFrom, sortFrom, accTo, sortTo, amountToTransfer );
-                                } else if (deposit) {
+                                } else {
                                     System.out.println("Deposit successful");
                                 }
                                 fileContents.add(currentLine);
@@ -612,7 +612,7 @@ public class Account {
         FileWriter fw = new FileWriter("TransferLog.txt", true);
 
         try {
-            fw.write("£"+amountToTransfer + " transferred from\nAccount number: " + accFrom + "\nSort code: "+ sortFrom + "\nto Account number: " + accTo + "\nSort code: " + sortTo + "\n@ " + new Date() + "\n\n-----------------\n\n");
+            fw.write("£"+amountToTransfer + " transferred from\nAccount number: " + accFrom + "\nSort code: "+ sortFrom + "\nto Account number: " + accTo + "\nSort code: " + sortTo + "\n@ " + new Date() + "\n\n-------------------------\n\n");
             System.out.println("Log Updated.");
             fw.flush();
         }

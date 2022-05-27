@@ -217,8 +217,8 @@ public class Staff {
                         balance = interest;
                         interest = line1;
                         if(i==5){
+                            continue;
                         }
-
                         else if(i==6){
 //                          If business charge run, take the charge away from bal. else, it's an interest run.
                             if(businessCharge){
