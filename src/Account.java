@@ -461,6 +461,7 @@ public class Account {
                             } else {
                                 currentLine = String.valueOf(Float.parseFloat(currentLine) + amountToTransfer);
                                 //System.out.println("Transfer successful!");
+                                LogTransferDetails(accFrom, sortFrom, accTo, sortTo, amountToTransfer );
                                 fileContents.add(currentLine);
                                 if(sortTo.equals("24-65-69")){
                                     newCap = ISA.getNewCap(accAction, amountToTransfer);
@@ -568,7 +569,27 @@ public class Account {
             transfer(null, accTo, null, sortTo, amountToTransfer, true);
         }
     }
+    static void LogTransferDetails(String accFrom, String sortFrom, String accTo, String sortTo, float amountToTransfer ) throws IOException {
 
+        //instantiating new filewriter with append boolean set to true:
+        //(this ensures new lines are only written to the end of the document)
+        FileWriter fw = new FileWriter("TransferLog.txt", true);
+
+        try {
+            fw.write("£"+amountToTransfer + " transferred from\nAccount number: " + accFrom + "\nSort code: "+ sortFrom + "\nto Account number: " + accTo + "\nSort code: " + sortTo + "\n@ " + new Date() + "\n\n-----------------\n\n");
+            System.out.println("Log Updated.");
+            fw.flush();
+        }
+        catch (Exception e){
+            System.out.println("Unrecognised file name when trying to record transfer to log.");
+        }
+        try {
+            fw.close();
+        }
+        catch(Exception e){
+            System.out.println("Unable to close file writer.");
+        }
+    }
 }
 
 
