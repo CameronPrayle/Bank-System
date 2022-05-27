@@ -3,3 +3,8 @@
 ### Username: user1@example.co.uk
 ### Password: Password1
 
+#### Future improvements:
+- Increase reusability of methods
+- Ensure that class files are not too crowded with methods
+- Improve input validation
+- Implement a UI
