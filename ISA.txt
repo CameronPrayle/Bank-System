@@ -28,7 +28,7 @@ Gorbyss Grivshenki
 43 Stovik Lane
 Gobo1@Gob.ru
 62
-30000.01
+20000.01
 0.020816159
 12 Ivan Street
 32 Pivovivic Road
@@ -40,9 +40,21 @@ Bailey Mason
 66 Olympia Way
 BimbleBomble@Binny.com
 20
-133.04297
+10133.043
 0.020816159
 
 
-20000
+10000.0
+----------
+81233607
+24-65-69
+jarek ettl
+12adsfasdfasdasd
+jarek@
+17
+9995.0
+0.02
+12sdfasdfasdasd
+12asdfasdfaasasd
+10000.0
 ----------
