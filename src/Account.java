@@ -528,6 +528,43 @@ public class Account {
         System.out.println("Account No.: "+ account.accNum);
         System.out.println("Sort Code: "+ account.sortCode);
     }
+
+
+    public static void deposit(){
+        String accTo;
+        String sortTo;
+        float amountToTransfer = 0;
+
+//      Get receiver details
+        sortTo = sortcodeCheck("To");
+        accTo = accNumCheck(sortTo,"To");
+
+//      Get amount
+        boolean valid=false;
+        System.out.println("Input amount to transfer:");
+        while (!valid){
+            try{
+                Scanner amountScan = new Scanner(System.in);
+                amountToTransfer = Float.parseFloat(amountScan.nextLine());
+                valid=true;
+            }catch (Exception e){
+                System.out.println("Amount must be a number:");
+            }
+        }
+
+//      Check remaining ISA cap
+        if(sortTo.equals("24-65-69")){
+            boolean capCheck = ISA.isAmountTooBigForCap(accTo, amountToTransfer);
+            if(capCheck==true){
+                System.out.println("The amount you want to transfer exceeds the ISA limit for that account");
+            }else{
+                transfer(null, accTo, null, sortTo, amountToTransfer, true);
+            }
+        }else{
+            transfer(null, accTo, null, sortTo, amountToTransfer, true);
+        }
+    }
+
 }
 
 

@@ -69,7 +69,7 @@ Very Rich Guy
 45 Some Big Road
 IAMLOADED@hotmail.biz
 66
-0.049999952
+10.05
 0.0
 23 Another Big Road
 1 Tiny Road

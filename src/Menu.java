@@ -7,7 +7,9 @@ public class Menu {
         System.out.println("2. View User Details");
         System.out.println("3. Transfer Funds");
         System.out.println("4. Request chequebook (Business account only)");
-        System.out.println("5. Exit");
+        System.out.println("5. Deposit");
+        System.out.println("6. Withdraw");
+        System.out.println("7. Exit");
         System.out.println("*******************************");
 
 //      Get user choice
