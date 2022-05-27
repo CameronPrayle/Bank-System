@@ -26,16 +26,14 @@ public class Staff {
                 3. Just Account type""");
         Scanner scan = new Scanner(System.in);
         String userChoice = scan.nextLine();
-        if(userChoice.equals("1")){
-            viewDetails(false);
-        }else if (userChoice.equals("2")) {
-            viewDetails(true);
-        }else if(userChoice.equals("3")){
-            displayAccountType();
-        }
-        else{
-            System.out.println("Enter either 1, 2 or 3");
-            viewWhichDetails();
+        switch (userChoice) {
+            case "1" -> viewDetails(false);
+            case "2" -> viewDetails(true);
+            case "3" -> displayAccountType();
+            default -> {
+                System.out.println("Enter either 1, 2 or 3");
+                viewWhichDetails();
+            }
         }
     }
     public void viewDetails(boolean justBalance){
