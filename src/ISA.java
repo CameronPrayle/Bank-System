@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ISA extends Account{
@@ -52,7 +50,7 @@ public class ISA extends Account{
     }
 
     public static String[] getNewCap(String accAction, float amountToTransfer) {
-        String capLine = null;
+        String capLine;
         String[] capArray = new String[2];
         try {
             File f = new File("ISA.txt");

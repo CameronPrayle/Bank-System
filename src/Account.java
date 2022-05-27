@@ -295,8 +295,6 @@ public class Account {
         }
     }
 
-
-
     public static void transferDetails() {
         String accFrom;
         String sortFrom;
@@ -328,7 +326,7 @@ public class Account {
 //      Check remaining ISA cap
         if(sortTo.equals("24-65-69")){
             boolean capCheck = ISA.isAmountTooBigForCap(accTo, amountToTransfer);
-            if(capCheck==true){
+            if(capCheck){
                 System.out.println("The amount you want to transfer exceeds the ISA limit for that account");
             }else{
                 transfer(accFrom, accTo, sortFrom, sortTo, amountToTransfer, false);
@@ -380,6 +378,7 @@ public class Account {
         return accNum;
     }
 
+
 //  Returns valid sort code
     public static String sortcodeCheck(String transType){
         String sortcode="";
@@ -388,7 +387,10 @@ public class Account {
         String message;
         if(transType.equals("display")){
             message = "get account type";
-        }else{
+        } else if (transType.equals("deposit")){
+            message = "deposit";
+        }
+        else{
             message = "transfer";
         }
 
