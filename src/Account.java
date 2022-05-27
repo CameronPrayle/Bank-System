@@ -465,10 +465,10 @@ public class Account {
                                 currentLine = String.valueOf(Float.parseFloat(currentLine) + amountToTransfer);
                                 if(!deposit){
                                     System.out.println("Transfer successful!");
+                                    LogTransferDetails(accFrom, sortFrom, accTo, sortTo, amountToTransfer );
                                 } else if (deposit) {
                                     System.out.println("Deposit successful");
                                 }
-
                                 fileContents.add(currentLine);
                                 if(sortTo.equals("24-65-69")){
                                     newCap = ISA.getNewCap(accAction, amountToTransfer);
@@ -579,6 +579,7 @@ public class Account {
         }
     }
 
+
     public static void withdraw(){
         String accFrom;
         String sortFrom;
@@ -602,9 +603,30 @@ public class Account {
         }
 
         transfer(accFrom, accFrom, sortFrom, null, amountToTransfer, false,false,true);
-        }
+    }
 
-    
+    static void LogTransferDetails(String accFrom, String sortFrom, String accTo, String sortTo, float amountToTransfer ) throws IOException {
+
+        //instantiating new filewriter with append boolean set to true:
+        //(this ensures new lines are only written to the end of the document)
+        FileWriter fw = new FileWriter("TransferLog.txt", true);
+
+        try {
+            fw.write("£"+amountToTransfer + " transferred from\nAccount number: " + accFrom + "\nSort code: "+ sortFrom + "\nto Account number: " + accTo + "\nSort code: " + sortTo + "\n@ " + new Date() + "\n\n-----------------\n\n");
+            System.out.println("Log Updated.");
+            fw.flush();
+        }
+        catch (Exception e){
+            System.out.println("Unrecognised file name when trying to record transfer to log.");
+        }
+        try {
+            fw.close();
+        }
+        catch(Exception e){
+            System.out.println("Unable to close file writer.");
+        }
+    }
+
 
 }
 
